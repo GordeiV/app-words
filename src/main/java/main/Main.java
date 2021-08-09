@@ -2,15 +2,14 @@ package main;
 
 import content.Vocabulary;
 import content.Word;
-import dao.DictionaryDao;
+import dao.VocabularyDao;
 
 import java.sql.*;
-import java.util.ArrayList;
 import java.util.List;
 
 public class Main {
     public static void main(String[] args) throws ClassNotFoundException, SQLException {
-        DictionaryDao directoryDao = new DictionaryDao();
+        VocabularyDao directoryDao = new VocabularyDao();
         List<Vocabulary> vocabularies = directoryDao.findVocabulary("o");
         for(Vocabulary vocabulary : vocabularies) {
             System.out.println(vocabulary.getName() + " : Date - " + vocabulary.getDate());

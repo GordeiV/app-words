@@ -3,6 +3,7 @@ package dao;
 
 import config.Config;
 import content.Vocabulary;
+import content.VocabularyStatus;
 import content.Word;
 
 import java.sql.*;
@@ -10,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class DictionaryDao {
+public class VocabularyDao {
     public static final String FIND_VOCABULARY = "SELECT * FROM vocabulary WHERE v_name REGEXP ?";
     public static final String GET_WORDS_FROM_VOCABULARY = "SELECT * FROM words WHERE id_vocabulary = ?";
 
@@ -34,7 +35,9 @@ public class DictionaryDao {
             while (rsWithVocabularies.next()) {
                 String name = rsWithVocabularies.getString("v_name");
                 Date date = rsWithVocabularies.getDate("v_date");
-                Vocabulary vocabulary = new Vocabulary(name, date);
+                VocabularyStatus status = VocabularyStatus.values()[rsWithVocabularies.getInt("v_status")];
+
+                Vocabulary vocabulary = new Vocabulary(name, date, status);
 
                 Long id = rsWithVocabularies.getLong("id_vocabulary");
                 stmtFindWord.setLong(1, id);

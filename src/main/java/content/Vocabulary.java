@@ -8,12 +8,14 @@ import java.util.regex.Pattern;
 
 public class Vocabulary {
     private ArrayList<Word> words = new ArrayList<>();
-    private Date date;
     private String name;
+    private Date date;
+    private VocabularyStatus vocabularyStatus;
 
-    public Vocabulary(String name, Date date) {
-        this.date = date;
+    public Vocabulary(String name, Date date, VocabularyStatus vocabularyStatus) {
         this.name = name;
+        this.date = date;
+        this.vocabularyStatus = vocabularyStatus;
     }
 
     public Vocabulary(Date date) {
@@ -69,5 +71,13 @@ public class Vocabulary {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public VocabularyStatus getVocabularyStatus() {
+        return vocabularyStatus;
+    }
+
+    public void setVocabularyStatus(VocabularyStatus vocabularyStatus) {
+        this.vocabularyStatus = vocabularyStatus;
     }
 }
