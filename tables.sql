@@ -13,8 +13,9 @@ CREATE TABLE users (
 
 CREATE TABLE vocabulary (
 	id_vocabulary SERIAL,
-    v_name varchar(50),
-    v_date DATETIME,
+    v_name varchar(50) not null,
+    v_date DATETIME not null,
+    v_status TINYINT not null,
     id_user BIGINT unsigned not null,
     PRIMARY KEY(id_vocabulary),
     FOREIGN KEY (id_user) REFERENCES users(id_user) ON DELETE CASCADE

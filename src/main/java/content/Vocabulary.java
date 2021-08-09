@@ -1,5 +1,6 @@
 package content;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -9,17 +10,18 @@ import java.util.regex.Pattern;
 public class Vocabulary {
     private ArrayList<Word> words = new ArrayList<>();
     private String name;
-    private Date date;
+    private LocalDateTime date;
     private VocabularyStatus vocabularyStatus;
 
-    public Vocabulary(String name, Date date, VocabularyStatus vocabularyStatus) {
+    public Vocabulary(String name, LocalDateTime date, VocabularyStatus vocabularyStatus) {
         this.name = name;
         this.date = date;
         this.vocabularyStatus = vocabularyStatus;
     }
 
-    public Vocabulary(Date date) {
-        this.date = date;
+    public Vocabulary(String name, VocabularyStatus vocabularyStatus) {
+        this.name = name;
+        this.vocabularyStatus = vocabularyStatus;
     }
 
     public Vocabulary() {
@@ -57,11 +59,12 @@ public class Vocabulary {
 //        words.get()
 //    }
 
-    public Date getDate() {
+
+    public LocalDateTime getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(LocalDateTime date) {
         this.date = date;
     }
 
