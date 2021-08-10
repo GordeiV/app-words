@@ -4,6 +4,7 @@ import content.User;
 import content.Vocabulary;
 import content.VocabularyStatus;
 import content.Word;
+import dao.UserDao;
 import dao.VocabularyDao;
 
 import java.sql.*;
@@ -14,14 +15,17 @@ import java.util.List;
 public class Main {
     public static void main(String[] args) throws ClassNotFoundException, SQLException {
         VocabularyDao vocabularyDao = new VocabularyDao();
+        UserDao userDao = new UserDao();
 //        List<Vocabulary> vocabularies = checkFindVocabulary(vocabularyDao);
 //        System.out.println("-----------------");
 //        List<Word> words = checkFindWord(vocabularies);
 
-        Vocabulary vocabulary = new Vocabulary("testVocabulary", VocabularyStatus.DO_NOTHING);
-        User user = new User(2L, "testUser", "testPassword");
-        Long id = vocabularyDao.saveVocabulary(vocabulary, user);
+//        Vocabulary vocabulary = new Vocabulary("testVocabulary", VocabularyStatus.DO_NOTHING);
+        User user = new User("testUser", "testPassword");
+        Long id = userDao.saveUser(user);
         System.out.println(id);
+//        Long id = vocabularyDao.saveVocabulary(vocabulary, user);
+//        System.out.println(id);
     }
 
     public static List<Vocabulary>  checkFindVocabulary(VocabularyDao directoryDao) {

@@ -1,14 +1,19 @@
 package content;
 
 public class User {
-    private Long id;
     private String login;
     private String password;
+    private Long id;
 
-    public User(Long id, String login, String password) {
-        this.id = id;
+    public User(String login, String password) {
         this.login = login;
         this.password = password;
+    }
+
+    public User(String login, String password, Long id) {
+        this.login = login;
+        this.password = password;
+        this.id = id;
     }
 
     public Long getId() {
