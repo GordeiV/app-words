@@ -1,63 +1,63 @@
-INSERT INTO users (login, u_password) VALUES ('marks', 'qwerty123');
-INSERT INTO users (login, u_password) VALUES ('sam', '07021997');
-INSERT INTO users (login, u_password) VALUES ('john', 'fen1232');
-INSERT INTO users (login, u_password) VALUES ('sally', 'kirk222');
-INSERT INTO users (login, u_password) VALUES ('kate', '123132');
-INSERT INTO users (login, u_password) VALUES ('shela', '987654321');
-INSERT INTO users (login, u_password) VALUES ('theo', 'kol2');
-INSERT INTO users (login, u_password) VALUES ('kripoti', 'tri3dva2');
+INSERT INTO users (login, u_password) VALUES ('marks', 'qwerty123'),
+('sam', '07021997'),
+('john', 'fen1232'),
+('sally', 'kirk222'),
+('kate', '123132'),
+('shela', '987654321'),
+('theo', 'kol2'),
+('kripoti', 'tri3dva2');
 
-INSERT INTO vocabulary(v_name, v_date, id_user, v_status) VALUES ('weather', '2021-01-05 20:05:00', 1, 0);
-INSERT INTO vocabulary(v_name, v_date, id_user, v_status) VALUES ('mood', '2021-02-10 21:10:00', 1, 0);
-INSERT INTO vocabulary(v_name, v_date, id_user, v_status) VALUES ('weekdays', '2021-03-15 22:15:00', 1, 0);
-INSERT INTO vocabulary(v_name, v_date, id_user, v_status) VALUES ('months', '2021-04-20 23:20:00', 2, 0);
-INSERT INTO vocabulary(v_name, v_date, id_user, v_status) VALUES ('ability', '2021-05-25 19:25:00', 2, 0);
-INSERT INTO vocabulary(v_name, v_date, id_user, v_status) VALUES ('people', '2021-06-29 18:30:00', 3, 0);
-INSERT INTO vocabulary(v_name, v_date, id_user, v_status) VALUES ('history', '2021-07-18 17:35:00', 4, 1);
-INSERT INTO vocabulary(v_name, v_date, id_user, v_status) VALUES ('way', '2021-08-16 16:40:00', 4, 1);
-INSERT INTO vocabulary(v_name, v_date, id_user, v_status) VALUES ('book', '2021-09-20 15:45:00', 5, 1);
-INSERT INTO vocabulary(v_name, v_date, id_user, v_status) VALUES ('money', '2021-01-25 14:50:00', 6, 1);
-INSERT INTO vocabulary(v_name, v_date, id_user, v_status) VALUES ('time', '2021-02-05 13:55:00', 6, 1);
-INSERT INTO vocabulary(v_name, v_date, id_user, v_status) VALUES ('water', '2021-03-20 12:05:00', 7, 1);
-INSERT INTO vocabulary(v_name, v_date, id_user, v_status) VALUES ('work', '2021-04-07 11:10:00', 7, 2);
-INSERT INTO vocabulary(v_name, v_date, id_user, v_status) VALUES ('eye', '2021-05-13 10:15:00', 7, 2);
-INSERT INTO vocabulary(v_name, v_date, id_user, v_status) VALUES ('number', '2021-06-17 09:20:00', 8, 2);
-INSERT INTO vocabulary(v_name, v_date, id_user, v_status) VALUES ('question', '2021-07-22 08:25:00', 8, 2);
-INSERT INTO vocabulary(v_name, v_date, id_user, v_status) VALUES ('school', '2021-08-28 07:30:00', 8, 2);
+INSERT INTO vocabulary(v_name, v_date, id_user, v_status, next_repeat_time) VALUES ('weather', '2021-01-05 20:05:00', 1, 0, null),
+('mood', '2021-02-10 21:10:00', 1, 0, null),
+('weekdays', '2021-03-15 22:15:00', 1, 0, null),
+('months', '2021-04-20 23:20:00', 2, 0, null),
+('ability', '2021-05-25 19:25:00', 2, 0, null),
+('people', '2021-06-29 18:30:00', 3, 0, null),
+('history', '2021-07-18 17:35:00', 4, 1, null),
+('way', '2021-08-16 16:40:00', 4, 1, null),
+('book', '2021-09-20 15:45:00', 5, 1, null),
+('money', '2021-01-25 14:50:00', 6, 1, null),
+('time', '2021-02-05 13:55:00', 6, 1, null),
+('water', '2021-03-20 12:05:00', 7, 1, null),
+('work', '2021-04-07 11:10:00', 7, 2, null),
+('eye', '2021-05-13 10:15:00', 7, 2, null),
+('number', '2021-06-17 09:20:00', 8, 2, null),
+('question', '2021-07-22 08:25:00', 8, 2, null),
+('school', '2021-08-28 07:30:00', 8, 2, null);
 
-INSERT INTO words(foreign_word, native_word, transcription, id_vocabulary) VALUES ('pilot', 'пилот', 'pailət', 1);
-INSERT INTO words(foreign_word, native_word, transcription, id_vocabulary) VALUES ('hospital', 'больница', 'pailət', 1);
-INSERT INTO words(foreign_word, native_word, transcription, id_vocabulary) VALUES ('estate', 'поместье', 'pailət', 1);
-INSERT INTO words(foreign_word, native_word, transcription, id_vocabulary) VALUES ('apartment', 'квартира', 'pailət', 1);
-INSERT INTO words(foreign_word, native_word, transcription, id_vocabulary) VALUES ('bakery', 'пекарня', 'pailət', 1);
-INSERT INTO words(foreign_word, native_word, transcription, id_vocabulary) VALUES ('temple', 'храм', 'pailət', 1);
-INSERT INTO words(foreign_word, native_word, transcription, id_vocabulary) VALUES ('church', 'церковь', 'pailət', 2);
-INSERT INTO words(foreign_word, native_word, transcription, id_vocabulary) VALUES ('dentist', 'зубной врач', 'pailət', 2);
-INSERT INTO words(foreign_word, native_word, transcription, id_vocabulary) VALUES ('doctor', 'доктор', 'pailət', 2);
-INSERT INTO words(foreign_word, native_word, transcription, id_vocabulary) VALUES ('nurse', 'няня ', 'pailət', 3);
-INSERT INTO words(foreign_word, native_word, transcription, id_vocabulary) VALUES ('cup', 'чашка', 'pailət', 3);
-INSERT INTO words(foreign_word, native_word, transcription, id_vocabulary) VALUES ('cupboard', 'буфет', 'pailət', 4);
-INSERT INTO words(foreign_word, native_word, transcription, id_vocabulary) VALUES ('glass', 'стакан', 'pailət', 5);
-INSERT INTO words(foreign_word, native_word, transcription, id_vocabulary) VALUES ('plate', 'тарелка', 'pailət', 6);
-INSERT INTO words(foreign_word, native_word, transcription, id_vocabulary) VALUES ('saucepan', 'кастрюля', 'pailət', 7);
-INSERT INTO words(foreign_word, native_word, transcription, id_vocabulary) VALUES ('jug', 'кувшин', 'pailət', 7);
-INSERT INTO words(foreign_word, native_word, transcription, id_vocabulary) VALUES ('kettle', 'чайник', 'pailət', 8);
-INSERT INTO words(foreign_word, native_word, transcription, id_vocabulary) VALUES ('sink', 'тонуть', 'pailət', 9);
-INSERT INTO words(foreign_word, native_word, transcription, id_vocabulary) VALUES ('tap', 'постучать', 'pailət', 10);
-INSERT INTO words(foreign_word, native_word, transcription, id_vocabulary) VALUES ('telephone', 'телефон', 'pailət', 10);
-INSERT INTO words(foreign_word, native_word, transcription, id_vocabulary) VALUES ('knife', 'нож', 'pailət', 11);
-INSERT INTO words(foreign_word, native_word, transcription, id_vocabulary) VALUES ('plane', 'самолет', 'pailət', 12);
-INSERT INTO words(foreign_word, native_word, transcription, id_vocabulary) VALUES ('photographer', 'фотограф', 'pailət', 12);
-INSERT INTO words(foreign_word, native_word, transcription, id_vocabulary) VALUES ('reporter', 'репортер', 'pailət', 12);
-INSERT INTO words(foreign_word, native_word, transcription, id_vocabulary) VALUES ('postman', 'почтальон', 'pailət', 12);
-INSERT INTO words(foreign_word, native_word, transcription, id_vocabulary) VALUES ('cabbage', 'капуста', 'pailət', 13);
-INSERT INTO words(foreign_word, native_word, transcription, id_vocabulary) VALUES ('fork', 'вилка', 'pailət', 13);
-INSERT INTO words(foreign_word, native_word, transcription, id_vocabulary) VALUES ('spoon', 'ложка', 'pailət', 13);
-INSERT INTO words(foreign_word, native_word, transcription, id_vocabulary) VALUES ('waiter', 'официант', 'pailət', 14);
-INSERT INTO words(foreign_word, native_word, transcription, id_vocabulary) VALUES ('waitress', 'официантка', 'pailət', 14);
-INSERT INTO words(foreign_word, native_word, transcription, id_vocabulary) VALUES ('market', 'рынок', 'pailət', 15);
-INSERT INTO words(foreign_word, native_word, transcription, id_vocabulary) VALUES ('actor', 'актер', 'pailət', 15);
-INSERT INTO words(foreign_word, native_word, transcription, id_vocabulary) VALUES ('drugstore', 'аптека', 'pailət', 16);
-INSERT INTO words(foreign_word, native_word, transcription, id_vocabulary) VALUES ('pedestrian', 'пешеход', 'pailət', 17);
-INSERT INTO words(foreign_word, native_word, transcription, id_vocabulary) VALUES ('block', 'блок', 'pailət', 17);
-INSERT INTO words(foreign_word, native_word, transcription, id_vocabulary) VALUES ('bus', 'автобус', 'pailət', 17);
+INSERT INTO words(foreign_word, native_word, transcription, id_vocabulary) VALUES ('pilot', 'пилот', 'pailət', 1),
+('hospital', 'больница', 'pailət', 1),
+('estate', 'поместье', 'pailət', 1),
+('apartment', 'квартира', 'pailət', 1),
+('bakery', 'пекарня', 'pailət', 1),
+('temple', 'храм', 'pailət', 1),
+('church', 'церковь', 'pailət', 2),
+('dentist', 'зубной врач', 'pailət', 2),
+('doctor', 'доктор', 'pailət', 2),
+('nurse', 'няня ', 'pailət', 3),
+('cup', 'чашка', 'pailət', 3),
+('cupboard', 'буфет', 'pailət', 4),
+('glass', 'стакан', 'pailət', 5),
+('plate', 'тарелка', 'pailət', 6),
+('saucepan', 'кастрюля', 'pailət', 7),
+('jug', 'кувшин', 'pailət', 7),
+('kettle', 'чайник', 'pailət', 8),
+('sink', 'тонуть', 'pailət', 9),
+('tap', 'постучать', 'pailət', 10),
+('telephone', 'телефон', 'pailət', 10),
+('knife', 'нож', 'pailət', 11),
+('plane', 'самолет', 'pailət', 12),
+('photographer', 'фотограф', 'pailət', 12),
+('reporter', 'репортер', 'pailət', 12),
+('postman', 'почтальон', 'pailət', 12),
+('cabbage', 'капуста', 'pailət', 13),
+('fork', 'вилка', 'pailət', 13),
+('spoon', 'ложка', 'pailət', 13),
+('waiter', 'официант', 'pailət', 14),
+('waitress', 'официантка', 'pailət', 14),
+('market', 'рынок', 'pailət', 15),
+('actor', 'актер', 'pailət', 15),
+('drugstore', 'аптека', 'pailət', 16),
+('pedestrian', 'пешеход', 'pailət', 17),
+('block', 'блок', 'pailət', 17),
+('bus', 'автобус', 'pailət', 17);

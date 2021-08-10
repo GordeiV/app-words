@@ -16,16 +16,20 @@ public class Main {
     public static void main(String[] args) throws ClassNotFoundException, SQLException {
         VocabularyDao vocabularyDao = new VocabularyDao();
         UserDao userDao = new UserDao();
-//        List<Vocabulary> vocabularies = checkFindVocabulary(vocabularyDao);
-//        System.out.println("-----------------");
-//        List<Word> words = checkFindWord(vocabularies);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        List<Vocabulary> vocabularies = vocabularyDao.getVocabulariesForRepeat();
+        for(Vocabulary vocabulary : vocabularies) {
+            System.out.println(vocabulary.getName() + " : Date - " + vocabulary.getDate().format(formatter));
+        }
+        System.out.println("-----------------");
+        List<Word> words = checkFindWord(vocabularies);
 
-//        Vocabulary vocabulary = new Vocabulary("testVocabulary", VocabularyStatus.DO_NOTHING);
-        User user = new User("testUser", "testPassword");
-        Long id = userDao.saveUser(user);
-        System.out.println(id);
-//        Long id = vocabularyDao.saveVocabulary(vocabulary, user);
-//        System.out.println(id);
+//        Vocabulary vocabulary = new Vocabulary("testVocabulary");
+//        User user = new User("testUser", "testPassword", 1L);
+//        Long id1 = userDao.saveUser(user);
+//        System.out.println(id1);
+//        Long id2 = vocabularyDao.saveVocabulary(vocabulary, user);
+//        System.out.println(id2);
     }
 
     public static List<Vocabulary>  checkFindVocabulary(VocabularyDao directoryDao) {
@@ -38,7 +42,7 @@ public class Main {
     }
 
     public static List<Word> checkFindWord(List<Vocabulary> vocabularies) {
-        List<Word> list=  vocabularies.get(0).findWord("d");
+        List<Word> list=  vocabularies.get(0).findWord("");
         for(Word word : list) {
             System.out.println(word.getForeignWord() + " : " + word.getNativeWord());
         }

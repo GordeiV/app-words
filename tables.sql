@@ -15,6 +15,7 @@ CREATE TABLE vocabulary (
 	id_vocabulary SERIAL,
     v_name varchar(50) not null,
     v_date DATETIME not null,
+    next_repeat_time DATETIME,
     v_status TINYINT not null,
     id_user BIGINT unsigned not null,
     PRIMARY KEY(id_vocabulary),

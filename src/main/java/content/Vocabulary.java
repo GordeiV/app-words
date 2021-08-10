@@ -11,17 +11,18 @@ public class Vocabulary {
     private ArrayList<Word> words = new ArrayList<>();
     private String name;
     private LocalDateTime date;
+    private LocalDateTime repeatTime;
     private VocabularyStatus vocabularyStatus;
 
-    public Vocabulary(String name, LocalDateTime date, VocabularyStatus vocabularyStatus) {
+    public Vocabulary(String name, LocalDateTime date, LocalDateTime repeatTime, VocabularyStatus vocabularyStatus) {
         this.name = name;
         this.date = date;
+        this.repeatTime = repeatTime;
         this.vocabularyStatus = vocabularyStatus;
     }
 
-    public Vocabulary(String name, VocabularyStatus vocabularyStatus) {
+    public Vocabulary(String name) {
         this.name = name;
-        this.vocabularyStatus = vocabularyStatus;
     }
 
     public Vocabulary() {

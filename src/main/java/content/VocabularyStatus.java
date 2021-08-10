@@ -1,7 +1,10 @@
 package content;
 
 public enum VocabularyStatus {
-    CREATING_PROCESS,
-    MUST_BE_REPEATED,
-    DO_NOTHING
+    FIRST_REPEAT,
+    SECOND_REPEAT,
+    THIRD_REPEAT,
+    FOURTH_REPEAT,
+    FIFTH_REPEAT,
+    ARCHIVED
 }
