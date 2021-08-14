@@ -6,5 +6,14 @@ public enum VocabularyStatus {
     THIRD_REPEAT,
     FOURTH_REPEAT,
     FIFTH_REPEAT,
-    ARCHIVED
+    ARCHIVED;
+
+    public static VocabularyStatus fromValue(int value) {
+        for(VocabularyStatus vs : VocabularyStatus.values()) {
+            if(vs.ordinal() == value) {
+                return vs;
+            }
+        }
+        throw new RuntimeException("Unknown value: " + value);
+    }
 }

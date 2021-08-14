@@ -32,3 +32,7 @@ CREATE TABLE words (
     PRIMARY KEY(id_word),
     FOREIGN KEY(id_vocabulary) REFERENCES vocabulary(id_vocabulary) ON DELETE CASCADE
 );
+
+CREATE INDEX idx_next_repeat_time ON vocabulary(next_repeat_time);
+CREATE INDEX idx_id_user ON vocabulary(id_user);
+CREATE INDEX idx_id_vocabulary ON words(id_vocabulary);
