@@ -6,6 +6,7 @@ import content.User;
 import content.Vocabulary;
 import content.VocabularyStatus;
 import content.Word;
+import util.ConnectionManager;
 
 import java.sql.*;
 import java.time.LocalDateTime;
@@ -19,17 +20,12 @@ public class VocabularyDao {
     public static final String INSERT_VOCABULARY = "INSERT INTO vocabulary(v_name, v_date, id_user, v_status, next_repeat_time) VALUES (?, ?, ?, ?, ?)";
     public static final String GET_VOCABULARIES_FOR_REPEAT = "SELECT * FROM vocabulary WHERE next_repeat_time < NOW()";
 
-    private Connection getConnection() throws SQLException {
-        Connection connection = DriverManager.getConnection(Config.getProperty(Config.DB_URL),
-                Config.getProperty(Config.DB_LOGIN),
-                Config.getProperty(Config.DB_PASSWORD));
-        return connection;
-    }
+
 
     public List<Vocabulary> getVocabulariesForRepeat() {
         List<Vocabulary> vocabularies = new ArrayList<>();
 
-        try (Connection con = getConnection();
+        try (Connection con = ConnectionManager.getConnection();
              PreparedStatement stmtFindVocabulary = con.prepareStatement(GET_VOCABULARIES_FOR_REPEAT);
              PreparedStatement stmtFindWord = con.prepareStatement(GET_WORDS_FROM_VOCABULARY))
         {
@@ -66,7 +62,7 @@ public class VocabularyDao {
     public List<Vocabulary> findVocabulary(String pattern) {
         List<Vocabulary> vocabularies = new ArrayList<>();
 
-        try (Connection con = getConnection();
+        try (Connection con = ConnectionManager.getConnection();
              PreparedStatement stmtFindVocabulary = con.prepareStatement(FIND_VOCABULARY);
              PreparedStatement stmtFindWord = con.prepareStatement(GET_WORDS_FROM_VOCABULARY)) {
             stmtFindVocabulary.setString(1, ".*?" + pattern + ".*?");
@@ -103,7 +99,7 @@ public class VocabularyDao {
     public Long saveVocabulary(Vocabulary vocabulary, User user) {
         Long result = -1L;
 
-        try (Connection connection = getConnection();
+        try (Connection connection = ConnectionManager.getConnection();
              PreparedStatement stmt = connection.prepareStatement(INSERT_VOCABULARY, new String[]{"id_vocabulary"})) {
             stmt.setString(1, vocabulary.getName());
             stmt.setTimestamp(2, java.sql.Timestamp.valueOf(LocalDateTime.now()));
