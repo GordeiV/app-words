@@ -1,10 +1,17 @@
-package content;
+package entity;
 
 public class Word {
     private Long id;
     private String foreignWord;
     private String nativeWord;
     private String transcription;
+
+    public Word(Long id, String foreignWord, String nativeWord, String transcription) {
+        this.id = id;
+        this.foreignWord = foreignWord;
+        this.nativeWord = nativeWord;
+        this.transcription = transcription;
+    }
 
     public Word(String foreignWord, String nativeWord, String transcription) {
         this.foreignWord = foreignWord;

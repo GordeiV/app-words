@@ -1,4 +1,4 @@
-package content;
+package entity;
 
 public class User {
     private String login;

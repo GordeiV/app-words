@@ -1,4 +1,4 @@
-package content;
+package entity;
 
 public enum VocabularyStatus {
     FIRST_REPEAT,

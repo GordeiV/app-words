@@ -1,11 +1,8 @@
-package content;
+package entity;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class Vocabulary {
     private ArrayList<Word> words = new ArrayList<>();
@@ -13,12 +10,15 @@ public class Vocabulary {
     private LocalDateTime date;
     private LocalDateTime repeatTime;
     private VocabularyStatus vocabularyStatus;
+    private Long id;
 
-    public Vocabulary(String name, LocalDateTime date, LocalDateTime repeatTime, VocabularyStatus vocabularyStatus) {
+    public Vocabulary(String name, LocalDateTime date, LocalDateTime repeatTime, VocabularyStatus vocabularyStatus, Long id) {
+        this.words = words;
         this.name = name;
         this.date = date;
         this.repeatTime = repeatTime;
         this.vocabularyStatus = vocabularyStatus;
+        this.id = id;
     }
 
     public Vocabulary(String name) {
@@ -83,5 +83,13 @@ public class Vocabulary {
 
     public void setVocabularyStatus(VocabularyStatus vocabularyStatus) {
         this.vocabularyStatus = vocabularyStatus;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }

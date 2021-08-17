@@ -1,11 +1,10 @@
 package dao;
 
 
-import config.Config;
-import content.User;
-import content.Vocabulary;
-import content.VocabularyStatus;
-import content.Word;
+import entity.User;
+import entity.Vocabulary;
+import entity.VocabularyStatus;
+import entity.Word;
 import util.ConnectionManager;
 
 import java.sql.*;
@@ -37,18 +36,19 @@ public class VocabularyDao {
                 LocalDateTime date = rsWithVocabularies.getTimestamp("v_date").toLocalDateTime();
                 LocalDateTime repeatTime = rsWithVocabularies.getTimestamp("next_repeat_time").toLocalDateTime();
                 VocabularyStatus status = VocabularyStatus.values()[rsWithVocabularies.getInt("v_status")];
-
-                Vocabulary vocabulary = new Vocabulary(name, date, repeatTime, status);
-
                 Long id = rsWithVocabularies.getLong("id_vocabulary");
+
+                Vocabulary vocabulary = new Vocabulary(name, date, repeatTime, status, id);
+
                 stmtFindWord.setLong(1, id);
                 ResultSet rsWithWords = stmtFindWord.executeQuery();
 
                 while (rsWithWords.next()) {
+                    Long wordId = rsWithWords.getLong("id_word");
                     String foreignWord = rsWithWords.getString("foreign_word");
                     String nativeWord = rsWithWords.getString("native_word");
                     String transcription = rsWithWords.getString("transcription");
-                    vocabulary.addWord(foreignWord, nativeWord, transcription);
+                    vocabulary.addWord(new Word(wordId, foreignWord, nativeWord, transcription));
                 }
                 vocabularies.add(vocabulary);
             }
@@ -74,18 +74,19 @@ public class VocabularyDao {
                 LocalDateTime date = rsWithVocabularies.getTimestamp("v_date").toLocalDateTime();
                 LocalDateTime repeatTime = rsWithVocabularies.getTimestamp("next_repeat_time").toLocalDateTime();
                 VocabularyStatus status = VocabularyStatus.values()[rsWithVocabularies.getInt("v_status")];
-
-                Vocabulary vocabulary = new Vocabulary(name, date, repeatTime, status);
-
                 Long id = rsWithVocabularies.getLong("id_vocabulary");
+
+                Vocabulary vocabulary = new Vocabulary(name, date, repeatTime, status, id);
+
                 stmtFindWord.setLong(1, id);
                 ResultSet rsWithWords = stmtFindWord.executeQuery();
 
                 while (rsWithWords.next()) {
+                    Long wordId = rsWithWords.getLong("id_word");
                     String foreignWord = rsWithWords.getString("foreign_word");
                     String nativeWord = rsWithWords.getString("native_word");
                     String transcription = rsWithWords.getString("transcription");
-                    vocabulary.addWord(foreignWord, nativeWord, transcription);
+                    vocabulary.addWord(new Word(wordId, foreignWord, nativeWord, transcription));
                 }
                 vocabularies.add(vocabulary);
             }
@@ -141,14 +142,14 @@ public class VocabularyDao {
         return change;
     }
 
-    public boolean updateVocabulary(Long id, Vocabulary newVocabulary) {
+    public boolean updateVocabulary(Vocabulary vocabulary) {
         boolean change = false;
 
         try (Connection con = ConnectionManager.getConnection();
              PreparedStatement stmt = con.prepareStatement(UPDATE_VOCABULARY))
         {
-            stmt.setString(1, newVocabulary.getName());
-            stmt.setLong(2, id);
+            stmt.setString(1, vocabulary.getName());
+            stmt.setLong(2, vocabulary.getId());
             int i = stmt.executeUpdate();
             if(i > 0) {
                 change = true;

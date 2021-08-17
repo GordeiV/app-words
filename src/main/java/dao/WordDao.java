@@ -1,6 +1,6 @@
 package dao;
 
-import content.Word;
+import entity.Word;
 import util.ConnectionManager;
 
 import java.sql.*;
@@ -37,16 +37,16 @@ public class WordDao {
      * id - id of word which must be updated
      * newWord - word, which must be inserted instead old one
      * */
-    public boolean updateWord(Long id, Word newWord) {
+    public boolean updateWord(Word word) {
         boolean change = false;
 
         try (Connection con = ConnectionManager.getConnection();
              PreparedStatement stmt = con.prepareStatement(UPDATE_WORD))
         {
-            stmt.setString(1, newWord.getForeignWord());
-            stmt.setString(2, newWord.getNativeWord());
-            stmt.setString(3, newWord.getTranscription());
-            stmt.setLong(4, id);
+            stmt.setString(1, word.getForeignWord());
+            stmt.setString(2, word.getNativeWord());
+            stmt.setString(3, word.getTranscription());
+            stmt.setLong(4, word.getId());
             int i = stmt.executeUpdate();
             if(i > 0) {
                 change = true;
