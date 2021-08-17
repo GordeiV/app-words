@@ -1,6 +1,7 @@
 package content;
 
 public class Word {
+    private Long id;
     private String foreignWord;
     private String nativeWord;
     private String transcription;
@@ -38,5 +39,13 @@ public class Word {
 
     public void setTranscription(String transcription) {
         this.transcription = transcription;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }

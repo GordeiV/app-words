@@ -6,6 +6,7 @@ import content.VocabularyStatus;
 import content.Word;
 import dao.UserDao;
 import dao.VocabularyDao;
+import dao.WordDao;
 
 import java.sql.*;
 import java.time.format.DateTimeFormatter;
@@ -14,15 +15,15 @@ import java.util.List;
 
 public class Main {
     public static void main(String[] args) throws ClassNotFoundException, SQLException {
-        VocabularyDao vocabularyDao = new VocabularyDao();
-        UserDao userDao = new UserDao();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        List<Vocabulary> vocabularies = vocabularyDao.getVocabulariesForRepeat();
-        for(Vocabulary vocabulary : vocabularies) {
-            System.out.println(vocabulary.getName() + " : Date - " + vocabulary.getDate().format(formatter));
-        }
-        System.out.println("-----------------");
-        List<Word> words = checkFindWord(vocabularies);
+//        VocabularyDao vocabularyDao = new VocabularyDao();
+//        UserDao userDao = new UserDao();
+//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+//        List<Vocabulary> vocabularies = vocabularyDao.getVocabulariesForRepeat();
+//        for(Vocabulary vocabulary : vocabularies) {
+//            System.out.println(vocabulary.getName() + " : Date - " + vocabulary.getDate().format(formatter));
+//        }
+//        System.out.println("-----------------");
+//        List<Word> words = checkFindWord(vocabularies);
 
 //        Vocabulary vocabulary = new Vocabulary("testVocabulary");
 //        User user = new User("testUser", "testPassword", 1L);
@@ -30,6 +31,10 @@ public class Main {
 //        System.out.println(id1);
 //        Long id2 = vocabularyDao.saveVocabulary(vocabulary, user);
 //        System.out.println(id2);
+
+        Word word = new Word("test1", "test2", "test3");
+        WordDao wd = new WordDao();
+        System.out.println(wd.delete(5L));
     }
 
     public static List<Vocabulary>  checkFindVocabulary(VocabularyDao directoryDao) {
