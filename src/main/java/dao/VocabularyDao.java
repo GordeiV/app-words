@@ -19,7 +19,8 @@ public class VocabularyDao {
     public static final String GET_WORDS_FROM_VOCABULARY = "SELECT * FROM words WHERE id_vocabulary = ?";
     public static final String INSERT_VOCABULARY = "INSERT INTO vocabulary(v_name, v_date, id_user, v_status, next_repeat_time) VALUES (?, ?, ?, ?, ?)";
     public static final String GET_VOCABULARIES_FOR_REPEAT = "SELECT * FROM vocabulary WHERE next_repeat_time < NOW()";
-
+    public static final String DELETE_VOCABULARY = "DELETE FROM vocabulary WHERE id_vocabulary = ?;";
+    public static final String UPDATE_VOCABULARY = "UPDATE vocabulary SET v_name = ? WHERE id_vocabulary = ?";
 
 
     public List<Vocabulary> getVocabulariesForRepeat() {
@@ -120,6 +121,43 @@ public class VocabularyDao {
             ex.printStackTrace();
         }
         return result;
+    }
+
+    public boolean deleteVocabulary(Long id) {
+        boolean change = false;
+
+        try (Connection con = ConnectionManager.getConnection();
+             PreparedStatement stmt = con.prepareStatement(DELETE_VOCABULARY))
+        {
+            stmt.setLong(1, id);
+            int i = stmt.executeUpdate();
+            if(i > 0) {
+                change = true;
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+
+        return change;
+    }
+
+    public boolean updateVocabulary(Long id, Vocabulary newVocabulary) {
+        boolean change = false;
+
+        try (Connection con = ConnectionManager.getConnection();
+             PreparedStatement stmt = con.prepareStatement(UPDATE_VOCABULARY))
+        {
+            stmt.setString(1, newVocabulary.getName());
+            stmt.setLong(2, id);
+            int i = stmt.executeUpdate();
+            if(i > 0) {
+                change = true;
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+
+        return change;
     }
 
 }

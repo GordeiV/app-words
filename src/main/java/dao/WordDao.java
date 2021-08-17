@@ -10,7 +10,7 @@ public class WordDao {
     public static final String UPDATE_WORD = "UPDATE words SET foreign_word = ?, native_word = ?, transcription = ? WHERE id_word = ?";
     public static final String DELETE_WORD = "DELETE FROM words WHERE id_word = ?;";
 
-    public Long save(Word word, Long vocabularyId) {
+    public Long saveWord(Word word, Long vocabularyId) {
         Long id = -1L;
 
         try (Connection con = ConnectionManager.getConnection();
@@ -37,7 +37,7 @@ public class WordDao {
      * id - id of word which must be updated
      * newWord - word, which must be inserted instead old one
      * */
-    public boolean update(Long id, Word newWord) {
+    public boolean updateWord(Long id, Word newWord) {
         boolean change = false;
 
         try (Connection con = ConnectionManager.getConnection();
@@ -58,7 +58,7 @@ public class WordDao {
         return change;
     }
 
-    public boolean delete(Long id) {
+    public boolean deleteWord(Long id) {
         boolean change = false;
 
         try (Connection con = ConnectionManager.getConnection();

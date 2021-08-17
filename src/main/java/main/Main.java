@@ -2,15 +2,12 @@ package main;
 
 import content.User;
 import content.Vocabulary;
-import content.VocabularyStatus;
 import content.Word;
 import dao.UserDao;
 import dao.VocabularyDao;
-import dao.WordDao;
 
 import java.sql.*;
 import java.time.format.DateTimeFormatter;
-import java.util.Formatter;
 import java.util.List;
 
 public class Main {
@@ -32,9 +29,20 @@ public class Main {
 //        Long id2 = vocabularyDao.saveVocabulary(vocabulary, user);
 //        System.out.println(id2);
 
-        Word word = new Word("test1", "test2", "test3");
-        WordDao wd = new WordDao();
-        System.out.println(wd.delete(5L));
+//        Word word = new Word("test1", "test2", "test3");
+//        WordDao wd = new WordDao();
+//        System.out.println(wd.delete(5L));
+
+//        Vocabulary vocabulary = new Vocabulary("kek");
+//        VocabularyDao vd = new VocabularyDao();
+//        System.out.println(vd.updateVocabulary(2L, vocabulary));
+
+        UserDao ud = new UserDao();
+        User user1 = new User("test01", "test01");
+        User user2 = new User("test02", "test02");
+        boolean b = ud.updateUser(2L, user1);
+        boolean sam = ud.updateUser("sam", user2);
+        System.out.println(b + " : " + sam);
     }
 
     public static List<Vocabulary>  checkFindVocabulary(VocabularyDao directoryDao) {
