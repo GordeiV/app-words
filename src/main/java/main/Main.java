@@ -5,6 +5,7 @@ import entity.Vocabulary;
 import entity.Word;
 import dao.UserDao;
 import dao.VocabularyDao;
+import util.ConnectionManager;
 
 import java.sql.*;
 import java.time.format.DateTimeFormatter;
@@ -22,15 +23,10 @@ public class Main {
 //        System.out.println("-----------------");
 //        List<Word> words = checkFindWord(vocabularies);
 
-        User user = new User("test2", "test", 3L);
-        System.out.println(userDao.updateUser(user));
+//        User user = new User("test2", "test", 3L);
+//        System.out.println(userDao.updateUser(user));
 
-//        Vocabulary vocabulary = new Vocabulary("testVocabulary");
-//        User user = new User("testUser", "testPassword", 1L);
-//        Long id1 = userDao.saveUser(user);
-//        System.out.println(id1);
-//        Long id2 = vocabularyDao.saveVocabulary(vocabulary, user);
-//        System.out.println(id2);
+
 
 //        Word word = new Word("test1", "test2", "test3");
 //        WordDao wd = new WordDao();
@@ -46,6 +42,9 @@ public class Main {
 //        boolean b = ud.updateUser(2L, user1);
 //        boolean sam = ud.updateUser("sam", user2);
 //        System.out.println(b + " : " + sam);
+//        Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/wordsapp?serverTimezone=UTC&allowMultiQueries=true",
+//                "root",
+//                "base121314");
     }
 
     public static List<Vocabulary>  checkFindVocabulary(VocabularyDao directoryDao) {
