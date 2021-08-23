@@ -6,9 +6,33 @@ import util.ConnectionManager;
 import java.sql.*;
 
 public class WordDao {
-    public static final String SAVE_WORD = "INSERT INTO words(foreign_word, native_word, transcription, id_vocabulary) VALUES (?, ?, ?, ?)";
-    public static final String UPDATE_WORD = "UPDATE words SET foreign_word = ?, native_word = ?, transcription = ? WHERE id_word = ?";
-    public static final String DELETE_WORD = "DELETE FROM words WHERE id_word = ?;";
+    private static final String GET_WORD = "SELECT * FROM words WHERE id_word = ?";
+    private static final String SAVE_WORD = "INSERT INTO words(foreign_word, native_word, transcription, id_vocabulary) VALUES (?, ?, ?, ?)";
+    private static final String UPDATE_WORD = "UPDATE words SET foreign_word = ?, native_word = ?, transcription = ? WHERE id_word = ?";
+    private static final String DELETE_WORD = "DELETE FROM words WHERE id_word = ?;";
+
+    public Word getWord(Long id) {
+        Word word = null;
+
+        try (Connection con = ConnectionManager.getConnection();
+             PreparedStatement stmt = con.prepareStatement(GET_WORD))
+        {
+            stmt.setLong(1, id);
+
+            ResultSet rs = stmt.executeQuery();
+            if(rs.next()) {
+                word = new Word(
+                        rs.getLong("id_word"),
+                        rs.getString("foreign_word"),
+                        rs.getString("native_word"),
+                        rs.getString("transcription"));
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+
+        return word;
+    }
 
     public Long saveWord(Word word, Long vocabularyId) {
         Long id = -1L;
