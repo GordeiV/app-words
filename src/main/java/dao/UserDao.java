@@ -7,10 +7,11 @@ import util.ConnectionManager;
 import java.sql.*;
 
 public class UserDao {
-    public static final String INSERT_USER = "INSERT INTO users (login, u_password) VALUES (?, ?)";
-    public static final String DELETE_USER_BY_ID = "DELETE FROM users WHERE id_user = ?";
-    public static final String DELETE_USER_BY_LOGIN = "DELETE FROM users WHERE login = ?";
-    public static final String UPDATE_USER = "UPDATE users SET login = ?, u_password = ? WHERE id_user = ?";
+    private static final String INSERT_USER = "INSERT INTO users (login, u_password) VALUES (?, ?)";
+    private static final String GET_USER = "SELECT * FROM users WHERE login = ?";
+    private static final String DELETE_USER_BY_ID = "DELETE FROM users WHERE id_user = ?";
+    private static final String DELETE_USER_BY_LOGIN = "DELETE FROM users WHERE login = ?";
+    private static final String UPDATE_USER = "UPDATE users SET login = ?, u_password = ? WHERE id_user = ?";
 
 
     private Connection getConnection() throws SQLException {
@@ -20,7 +21,7 @@ public class UserDao {
         return connection;
     }
 
-    public Long saveUser(User user) {
+    public Long saveUser(User user) throws SQLException {
         Long id = -1L;
 
         try (Connection connection = getConnection();
@@ -35,11 +36,31 @@ public class UserDao {
             if(rs.next()) {
                 id = rs.getLong(1);
             }
-        } catch (Exception ex) {
-            ex.printStackTrace();
         }
 
+
         return id;
+    }
+
+    /**
+     * @param login
+     * @return If there is no user found, return null
+     * @throws SQLException
+     */
+    public User getUser(String login) throws SQLException {
+        User user = null;
+
+        try (Connection con = ConnectionManager.getConnection();
+        PreparedStatement stmt = con.prepareStatement(GET_USER))
+        {
+            stmt.setString(1, login);
+
+            ResultSet keys = stmt.executeQuery();
+            if(keys.next() == true) {
+                user = new User(keys.getString("login"), keys.getString("u_password"), keys.getLong("id_user"));
+            }
+        }
+        return user;
     }
 
     public boolean deleteUser(Long id) {

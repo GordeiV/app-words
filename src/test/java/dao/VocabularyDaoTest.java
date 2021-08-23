@@ -15,6 +15,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -32,7 +33,7 @@ public class VocabularyDaoTest {
 
 
     @Test
-    public void saveVocabulary1() {
+    public void saveVocabulary1() throws SQLException {
         Vocabulary vocabulary = new Vocabulary("noway");
         User user = new User("testUser1", "testPassword", 1L);
         Long id1 = new UserDao().saveUser(user);
@@ -40,7 +41,7 @@ public class VocabularyDaoTest {
     }
 
     @Test
-    public void saveVocabulary2() {
+    public void saveVocabulary2() throws SQLException {
         Vocabulary vocabulary = new Vocabulary("number2");
         User user = new User("testUser2", "testPassword", 1L);
         Long id1 = new UserDao().saveUser(user);
@@ -48,7 +49,7 @@ public class VocabularyDaoTest {
     }
 
     @Test
-    public void saveVocabulary3() {
+    public void saveVocabulary3() throws SQLException {
         Vocabulary vocabulary = new Vocabulary("key");
         User user = new User("testUser3", "testPassword", 1L);
         Long id1 = new UserDao().saveUser(user);
