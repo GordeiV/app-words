@@ -27,6 +27,8 @@ public class VocabularyDao {
 
 
     public List<Vocabulary> getVocabulariesForRepeat() throws DaoException{
+        logger.debug("Method getVocabulariesForRepeat was invoked");
+
         List<Vocabulary> vocabularies = new ArrayList<>();
 
         try (Connection con = ConnectionManager.getConnection();
@@ -46,6 +48,7 @@ public class VocabularyDao {
 
                 stmtFindWord.setLong(1, id);
                 ResultSet rsWithWords = stmtFindWord.executeQuery();
+                logger.trace("Query was successfully invoked");
 
                 while (rsWithWords.next()) {
                     Long wordId = rsWithWords.getLong("id_word");
@@ -54,6 +57,7 @@ public class VocabularyDao {
                     String transcription = rsWithWords.getString("transcription");
                     vocabulary.addWord(new Word(wordId, foreignWord, nativeWord, transcription));
                 }
+                logger.debug("Vocabularies were received. Vocabulary (number {}): {}", vocabularies.size(), vocabulary);
                 vocabularies.add(vocabulary);
             }
 
@@ -66,6 +70,8 @@ public class VocabularyDao {
     }
 
     public List<Vocabulary> findVocabulary(String pattern) throws DaoException {
+        logger.debug("Method findVocabulary was invoked with pattern: {}", pattern);
+
         List<Vocabulary> vocabularies = new ArrayList<>();
 
         try (Connection con = ConnectionManager.getConnection();
@@ -73,6 +79,7 @@ public class VocabularyDao {
              PreparedStatement stmtFindWord = con.prepareStatement(GET_WORDS_FROM_VOCABULARY)) {
             stmtFindVocabulary.setString(1, ".*?" + pattern + ".*?");
             ResultSet rsWithVocabularies = stmtFindVocabulary.executeQuery();
+            logger.trace("Query was successfully invoked");
 
             while (rsWithVocabularies.next()) {
                 String name = rsWithVocabularies.getString("v_name");
@@ -93,6 +100,7 @@ public class VocabularyDao {
                     String transcription = rsWithWords.getString("transcription");
                     vocabulary.addWord(new Word(wordId, foreignWord, nativeWord, transcription));
                 }
+                logger.debug("Vocabularies were received. Vocabulary (number {}): {}", vocabularies.size(), vocabulary);
                 vocabularies.add(vocabulary);
             }
 
@@ -105,6 +113,8 @@ public class VocabularyDao {
     }
 
     public Long saveVocabulary(Vocabulary vocabulary, User user) throws DaoException {
+        logger.debug("Method saveVocabulary was invoked with \nVocabulary: {}\nUser: {}", vocabulary, user);
+
         Long result = -1L;
 
         logger.debug("Vocabulary: {}", vocabulary);
@@ -119,6 +129,7 @@ public class VocabularyDao {
             stmt.setTimestamp(5, Timestamp.valueOf(nextRepeat));
 
             stmt.executeUpdate();
+            logger.trace("Query was successfully invoked");
 
             ResultSet generatedKeys = stmt.getGeneratedKeys();
             if (generatedKeys.next()) {
@@ -130,10 +141,14 @@ public class VocabularyDao {
             logger.error(ex.getMessage(), ex);
             throw new DaoException(ex);
         }
+
+        logger.debug("Method saveVocabulary returned {}", result);
         return result;
     }
 
     public boolean deleteVocabulary(Long id) throws DaoException {
+        logger.debug("Method deleteVocabulary was invoked with id: {}", id);
+
         boolean change = false;
 
         try (Connection con = ConnectionManager.getConnection();
@@ -141,6 +156,7 @@ public class VocabularyDao {
         {
             stmt.setLong(1, id);
             int i = stmt.executeUpdate();
+            logger.trace("Query was successfully invoked");
             if(i > 0) {
                 change = true;
             }
@@ -149,6 +165,7 @@ public class VocabularyDao {
             throw new DaoException(ex);
         }
 
+        logger.debug("Method deleteVocabulary returned {}", change);
         return change;
     }
 
@@ -161,6 +178,7 @@ public class VocabularyDao {
             stmt.setString(1, vocabulary.getName());
             stmt.setLong(2, vocabulary.getId());
             int i = stmt.executeUpdate();
+            logger.trace("Query was successfully invoked");
             if(i > 0) {
                 change = true;
             }
@@ -169,6 +187,7 @@ public class VocabularyDao {
             throw new DaoException(ex);
         }
 
+        logger.debug("Method updateVocabulary returned {}", change);
         return change;
     }
 

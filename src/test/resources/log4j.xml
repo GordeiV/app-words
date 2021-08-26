@@ -5,7 +5,7 @@
     <appender name="fileAppender" class="org.apache.log4j.RollingFileAppender">
         <param name="maxFileSize" value="10MB"/>
         <param name="maxBackupIndex" value="2"/>
-        <param name="file" value="target/logfile_test.log"/>
+        <param name="file" value="src/main/java/logs/logfile_test.log"/>
         <layout class="org.apache.log4j.PatternLayout">
             <param name="ConversionPattern"
                    value="%d{yyyy-MM-dd HH:mm:ss} %-5p %c{1} - %m%n"/>
@@ -13,6 +13,12 @@
     </appender>
 
     <category name="dao">
+        <!--all, trace, debug, info, warn, error, fatal-->
+        <priority value="all"/>
+        <appender-ref ref="fileAppender"/>
+    </category>
+
+    <category name="dao.UserDao" additivity="false">
         <!--all, trace, debug, info, warn, error, fatal-->
         <priority value="all"/>
         <appender-ref ref="fileAppender"/>

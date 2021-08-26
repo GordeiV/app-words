@@ -26,6 +26,8 @@ public class UserDao {
     }
 
     public Long saveUser(User user) throws DaoException {
+        logger.debug("Method saveUser saves User: {}", user);
+
         Long id = -1L;
 
         try (Connection connection = getConnection();
@@ -35,17 +37,17 @@ public class UserDao {
             preparedStatement.setString(2, user.getPassword());
 
             preparedStatement.executeUpdate();
-
+            logger.trace("Query was successfully invoked and user was successfully saved");
             ResultSet rs = preparedStatement.getGeneratedKeys();
             if(rs.next()) {
                 id = rs.getLong(1);
             }
         } catch (SQLException ex) {
-            logger.error(ex.getMessage(), ex);
+            logger.error("Saving of user failed: " + ex.getMessage(), ex);
             throw new DaoException(ex);
         }
 
-
+        logger.debug("Method saveUser returned {}", id);
         return id;
     }
 
@@ -55,6 +57,8 @@ public class UserDao {
      * @throws SQLException
      */
     public User getUser(String login) throws DaoException {
+        logger.debug("Method getUser tries to get User with login: {}", login);
+
         User user = null;
 
         try (Connection con = ConnectionManager.getConnection();
@@ -63,6 +67,7 @@ public class UserDao {
             stmt.setString(1, login);
 
             ResultSet keys = stmt.executeQuery();
+            logger.trace("Query was successfully invoked");
             if(keys.next() == true) {
                 user = new User(keys.getString("login"), keys.getString("u_password"), keys.getLong("id_user"));
             }
@@ -70,10 +75,13 @@ public class UserDao {
             logger.error(ex.getMessage(), ex);
             throw new DaoException(ex);
         }
+        logger.debug("User was received: {}", user);
         return user;
     }
 
     public boolean deleteUser(Long id) throws DaoException {
+        logger.debug("Method deleteUser tries to delete User with id: {}", id);
+
         boolean change = false;
 
         try (Connection con = ConnectionManager.getConnection();
@@ -81,6 +89,7 @@ public class UserDao {
         {
             stmt.setLong(1, id);
             int i = stmt.executeUpdate();
+            logger.trace("Query was successfully invoked");
             if(i > 0) {
                 change = true;
             }
@@ -89,10 +98,13 @@ public class UserDao {
             throw new DaoException(ex);
         }
 
+        logger.debug("Method deleteUser returned {}", change);
         return change;
     }
 
     public boolean deleteUser(String login) throws DaoException {
+        logger.debug("Method deleteUser tries to delete User with login: {}", login);
+
         boolean change = false;
 
         try (Connection con = ConnectionManager.getConnection();
@@ -100,6 +112,7 @@ public class UserDao {
         {
             stmt.setString(1, login);
             int i = stmt.executeUpdate();
+            logger.trace("Query was successfully invoked");
             if(i > 0) {
                 change = true;
             }
@@ -108,10 +121,13 @@ public class UserDao {
             throw new DaoException(ex);
         }
 
+        logger.debug("Method deleteUser returned {}", change);
         return change;
     }
 
     public boolean updateUser(User user) throws DaoException {
+        logger.debug("Method updateUser tries to update User: {}", user);
+
         boolean change = false;
 
         try (Connection con = ConnectionManager.getConnection();
@@ -122,6 +138,7 @@ public class UserDao {
             stmt.setLong(3, user.getId());
 
             int i = stmt.executeUpdate();
+            logger.trace("Query was successfully invoked");
             if(i > 0) {
                 change = true;
             }
@@ -130,6 +147,7 @@ public class UserDao {
             throw new DaoException(ex);
         }
 
+        logger.debug("Method updateUser returned {}", change);
         return change;
     }
 }

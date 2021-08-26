@@ -16,6 +16,8 @@ public class WordDao {
     private static final String DELETE_WORD = "DELETE FROM words WHERE id_word = ?;";
 
     public Word getWord(Long id) throws DaoException {
+        logger.debug("Method getWord was invoked with id: {}", id);
+
         Word word = null;
 
         try (Connection con = ConnectionManager.getConnection();
@@ -24,6 +26,7 @@ public class WordDao {
             stmt.setLong(1, id);
 
             ResultSet rs = stmt.executeQuery();
+            logger.trace("Query was successfully invoked");
             if(rs.next()) {
                 word = new Word(
                         rs.getLong("id_word"),
@@ -36,10 +39,13 @@ public class WordDao {
             throw new DaoException(ex);
         }
 
+        logger.debug("Word was received: {}", word);
         return word;
     }
 
     public Long saveWord(Word word, Long vocabularyId) throws DaoException {
+        logger.debug("Method saveWord was invoked with vocabularyId - {} for word: {}", vocabularyId, word);
+
         Long id = -1L;
 
         try (Connection con = ConnectionManager.getConnection();
@@ -50,6 +56,7 @@ public class WordDao {
             stmt.setString(3, word.getTranscription());
             stmt.setLong(4, vocabularyId);
             stmt.executeUpdate();
+            logger.trace("Query was successfully invoked");
 
             ResultSet rs = stmt.getGeneratedKeys();
             if(rs.next()) {
@@ -60,6 +67,7 @@ public class WordDao {
             throw new DaoException(ex);
         }
 
+        logger.debug("Method saveWord returned {}", id);
         return id;
     }
 
@@ -68,6 +76,8 @@ public class WordDao {
      * newWord - word, which must be inserted instead old one
      * */
     public boolean updateWord(Word word) throws DaoException {
+        logger.debug("Method updateWord was invoked with word: {}", word);
+
         boolean change = false;
 
         try (Connection con = ConnectionManager.getConnection();
@@ -78,6 +88,7 @@ public class WordDao {
             stmt.setString(3, word.getTranscription());
             stmt.setLong(4, word.getId());
             int i = stmt.executeUpdate();
+            logger.trace("Query was successfully invoked");
             if(i > 0) {
                 change = true;
             }
@@ -86,10 +97,13 @@ public class WordDao {
             throw new DaoException(ex);
         }
 
+        logger.debug("Method updateWord returned {}", change);
         return change;
     }
 
     public boolean deleteWord(Long id) throws DaoException {
+        logger.debug("Method deleteWord was invoked with id: {}", id);
+
         boolean change = false;
 
         try (Connection con = ConnectionManager.getConnection();
@@ -97,6 +111,7 @@ public class WordDao {
         {
             stmt.setLong(1, id);
             int i = stmt.executeUpdate();
+            logger.trace("Query was successfully invoked");
             if(i > 0) {
                 change = true;
             }
@@ -105,6 +120,7 @@ public class WordDao {
             throw new DaoException(ex);
         }
 
+        logger.debug("Method deleteWord returned {}", change);
         return change;
     }
 }
