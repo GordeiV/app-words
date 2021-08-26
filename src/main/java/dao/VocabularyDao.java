@@ -5,6 +5,8 @@ import entity.User;
 import entity.Vocabulary;
 import entity.VocabularyStatus;
 import entity.Word;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import util.ConnectionManager;
 
 import java.sql.*;
@@ -14,15 +16,17 @@ import java.util.List;
 
 
 public class VocabularyDao {
-    public static final String FIND_VOCABULARY = "SELECT * FROM vocabulary WHERE v_name REGEXP ?";
-    public static final String GET_WORDS_FROM_VOCABULARY = "SELECT * FROM words WHERE id_vocabulary = ?";
-    public static final String INSERT_VOCABULARY = "INSERT INTO vocabulary(v_name, v_date, id_user, v_status, next_repeat_time) VALUES (?, ?, ?, ?, ?)";
-    public static final String GET_VOCABULARIES_FOR_REPEAT = "SELECT * FROM vocabulary WHERE next_repeat_time < NOW()";
-    public static final String DELETE_VOCABULARY = "DELETE FROM vocabulary WHERE id_vocabulary = ?;";
-    public static final String UPDATE_VOCABULARY = "UPDATE vocabulary SET v_name = ? WHERE id_vocabulary = ?";
+    private static final Logger logger = LoggerFactory.getLogger(VocabularyDao.class);
+
+    private static final String FIND_VOCABULARY = "SELECT * FROM vocabulary WHERE v_name REGEXP ?";
+    private static final String GET_WORDS_FROM_VOCABULARY = "SELECT * FROM words WHERE id_vocabulary = ?";
+    private static final String INSERT_VOCABULARY = "INSERT INTO vocabulary(v_name, v_date, id_user, v_status, next_repeat_time) VALUES (?, ?, ?, ?, ?)";
+    private static final String GET_VOCABULARIES_FOR_REPEAT = "SELECT * FROM vocabulary WHERE next_repeat_time < NOW()";
+    private static final String DELETE_VOCABULARY = "DELETE FROM vocabulary WHERE id_vocabulary = ?;";
+    private static final String UPDATE_VOCABULARY = "UPDATE vocabulary SET v_name = ? WHERE id_vocabulary = ?";
 
 
-    public List<Vocabulary> getVocabulariesForRepeat() {
+    public List<Vocabulary> getVocabulariesForRepeat() throws DaoException{
         List<Vocabulary> vocabularies = new ArrayList<>();
 
         try (Connection con = ConnectionManager.getConnection();
@@ -54,13 +58,14 @@ public class VocabularyDao {
             }
 
         } catch (SQLException ex) {
-            ex.printStackTrace();
+            logger.error(ex.getMessage(), ex);
+            throw new DaoException(ex);
         }
 
         return vocabularies;
     }
 
-    public List<Vocabulary> findVocabulary(String pattern) {
+    public List<Vocabulary> findVocabulary(String pattern) throws DaoException {
         List<Vocabulary> vocabularies = new ArrayList<>();
 
         try (Connection con = ConnectionManager.getConnection();
@@ -92,14 +97,17 @@ public class VocabularyDao {
             }
 
         } catch (SQLException ex) {
-            ex.printStackTrace();
+            logger.error(ex.getMessage(), ex);
+            throw new DaoException(ex);
         }
 
         return vocabularies;
     }
 
-    public Long saveVocabulary(Vocabulary vocabulary, User user) {
+    public Long saveVocabulary(Vocabulary vocabulary, User user) throws DaoException {
         Long result = -1L;
+
+        logger.debug("Vocabulary: {}", vocabulary);
 
         try (Connection connection = ConnectionManager.getConnection();
              PreparedStatement stmt = connection.prepareStatement(INSERT_VOCABULARY, new String[]{"id_vocabulary"})) {
@@ -119,12 +127,13 @@ public class VocabularyDao {
             generatedKeys.close();
 
         } catch (Exception ex) {
-            ex.printStackTrace();
+            logger.error(ex.getMessage(), ex);
+            throw new DaoException(ex);
         }
         return result;
     }
 
-    public boolean deleteVocabulary(Long id) {
+    public boolean deleteVocabulary(Long id) throws DaoException {
         boolean change = false;
 
         try (Connection con = ConnectionManager.getConnection();
@@ -136,13 +145,14 @@ public class VocabularyDao {
                 change = true;
             }
         } catch (SQLException ex) {
-            ex.printStackTrace();
+            logger.error(ex.getMessage(), ex);
+            throw new DaoException(ex);
         }
 
         return change;
     }
 
-    public boolean updateVocabulary(Vocabulary vocabulary) {
+    public boolean updateVocabulary(Vocabulary vocabulary) throws DaoException {
         boolean change = false;
 
         try (Connection con = ConnectionManager.getConnection();
@@ -155,7 +165,8 @@ public class VocabularyDao {
                 change = true;
             }
         } catch (SQLException ex) {
-            ex.printStackTrace();
+            logger.error(ex.getMessage(), ex);
+            throw new DaoException(ex);
         }
 
         return change;

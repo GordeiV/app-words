@@ -6,6 +6,8 @@ import entity.VocabularyStatus;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import util.ConnectionManager;
 
 import java.io.IOException;
@@ -26,6 +28,8 @@ import java.util.stream.Collectors;
 import static org.junit.Assert.*;
 
 public class VocabularyDaoTest {
+    private static final Logger logger = LoggerFactory.getLogger(VocabularyDaoTest.class);
+
     @BeforeClass
     public static void startUp() throws Exception {
         DBInit.startUp();
@@ -33,7 +37,8 @@ public class VocabularyDaoTest {
 
 
     @Test
-    public void saveVocabulary1() throws SQLException {
+    public void saveVocabulary1() throws DaoException {
+        logger.debug("Test");
         Vocabulary vocabulary = new Vocabulary("noway");
         User user = new User("testUser1", "testPassword", 1L);
         Long id1 = new UserDao().saveUser(user);
@@ -41,7 +46,7 @@ public class VocabularyDaoTest {
     }
 
     @Test
-    public void saveVocabulary2() throws SQLException {
+    public void saveVocabulary2() throws DaoException {
         Vocabulary vocabulary = new Vocabulary("number2");
         User user = new User("testUser2", "testPassword", 1L);
         Long id1 = new UserDao().saveUser(user);
@@ -49,7 +54,7 @@ public class VocabularyDaoTest {
     }
 
     @Test
-    public void saveVocabulary3() throws SQLException {
+    public void saveVocabulary3() throws DaoException {
         Vocabulary vocabulary = new Vocabulary("key");
         User user = new User("testUser3", "testPassword", 1L);
         Long id1 = new UserDao().saveUser(user);
@@ -57,46 +62,46 @@ public class VocabularyDaoTest {
     }
 
     @Test
-    public void findVocabulary1() {
+    public void findVocabulary1() throws DaoException {
         List<Vocabulary> list = new VocabularyDao().findVocabulary("ay");
         Assert.assertTrue(list.size() == 3);
     }
 
     @Test
-    public void findVocabulary2() {
+    public void findVocabulary2() throws DaoException {
         List<Vocabulary> list = new VocabularyDao().findVocabulary("e");
         Assert.assertTrue(list.size() == 11);
     }
 
     @Test
-    public void findVocabulary3() {
+    public void findVocabulary3() throws DaoException {
         List<Vocabulary> list = new VocabularyDao().findVocabulary("number");
         Assert.assertTrue(list.size() == 2);
     }
 
     @Test
-    public void deleteVocabulary1() {
+    public void deleteVocabulary1() throws DaoException {
         VocabularyDao vocabularyDao = new VocabularyDao();
         vocabularyDao.deleteVocabulary(5L);
         Assert.assertTrue(vocabularyDao.findVocabulary("ability").size() == 0);
     }
 
     @Test
-    public void deleteVocabulary2() {
+    public void deleteVocabulary2() throws DaoException {
         VocabularyDao vocabularyDao = new VocabularyDao();
         vocabularyDao.deleteVocabulary(10L);
         Assert.assertTrue(vocabularyDao.findVocabulary("money").size() == 0);
     }
 
     @Test
-    public void deleteVocabulary3() {
+    public void deleteVocabulary3() throws DaoException {
         VocabularyDao vocabularyDao = new VocabularyDao();
         vocabularyDao.deleteVocabulary(12L);
         Assert.assertTrue(vocabularyDao.findVocabulary("water").size() == 0);
     }
 
     @Test
-    public void updateVocabulary() {
+    public void updateVocabulary() throws DaoException {
         Vocabulary vocabulary = new Vocabulary(
                 "forTest",
                 LocalDateTime.of(2002, 3, 3, 20, 0, 0),

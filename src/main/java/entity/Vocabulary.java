@@ -56,11 +56,6 @@ public class Vocabulary {
         return resultWords;
     }
 
-    //    public Word getWordByForeignWord(String foreignWord) {
-//        words.get()
-//    }
-
-
     public LocalDateTime getDate() {
         return date;
     }
@@ -91,5 +86,17 @@ public class Vocabulary {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    @Override
+    public String toString() {
+        return "Vocabulary{" +
+                "words=" + words +
+                ", name='" + name + '\'' +
+                ", date=" + date +
+                ", repeatTime=" + repeatTime +
+                ", vocabularyStatus=" + vocabularyStatus +
+                ", id=" + id +
+                '}';
     }
 }

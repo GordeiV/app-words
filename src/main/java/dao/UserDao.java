@@ -2,11 +2,15 @@ package dao;
 
 import config.Config;
 import entity.User;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import util.ConnectionManager;
 
 import java.sql.*;
 
 public class UserDao {
+    private static final Logger logger = LoggerFactory.getLogger(UserDao.class);
+
     private static final String INSERT_USER = "INSERT INTO users (login, u_password) VALUES (?, ?)";
     private static final String GET_USER = "SELECT * FROM users WHERE login = ?";
     private static final String DELETE_USER_BY_ID = "DELETE FROM users WHERE id_user = ?";
@@ -21,7 +25,7 @@ public class UserDao {
         return connection;
     }
 
-    public Long saveUser(User user) throws SQLException {
+    public Long saveUser(User user) throws DaoException {
         Long id = -1L;
 
         try (Connection connection = getConnection();
@@ -36,6 +40,9 @@ public class UserDao {
             if(rs.next()) {
                 id = rs.getLong(1);
             }
+        } catch (SQLException ex) {
+            logger.error(ex.getMessage(), ex);
+            throw new DaoException(ex);
         }
 
 
@@ -47,7 +54,7 @@ public class UserDao {
      * @return If there is no user found, return null
      * @throws SQLException
      */
-    public User getUser(String login) throws SQLException {
+    public User getUser(String login) throws DaoException {
         User user = null;
 
         try (Connection con = ConnectionManager.getConnection();
@@ -59,11 +66,14 @@ public class UserDao {
             if(keys.next() == true) {
                 user = new User(keys.getString("login"), keys.getString("u_password"), keys.getLong("id_user"));
             }
+        } catch (SQLException ex) {
+            logger.error(ex.getMessage(), ex);
+            throw new DaoException(ex);
         }
         return user;
     }
 
-    public boolean deleteUser(Long id) {
+    public boolean deleteUser(Long id) throws DaoException {
         boolean change = false;
 
         try (Connection con = ConnectionManager.getConnection();
@@ -75,13 +85,14 @@ public class UserDao {
                 change = true;
             }
         } catch (SQLException ex) {
-            ex.printStackTrace();
+            logger.error(ex.getMessage(), ex);
+            throw new DaoException(ex);
         }
 
         return change;
     }
 
-    public boolean deleteUser(String login) {
+    public boolean deleteUser(String login) throws DaoException {
         boolean change = false;
 
         try (Connection con = ConnectionManager.getConnection();
@@ -93,13 +104,14 @@ public class UserDao {
                 change = true;
             }
         } catch (SQLException ex) {
-            ex.printStackTrace();
+            logger.error(ex.getMessage(), ex);
+            throw new DaoException(ex);
         }
 
         return change;
     }
 
-    public boolean updateUser(User user) {
+    public boolean updateUser(User user) throws DaoException {
         boolean change = false;
 
         try (Connection con = ConnectionManager.getConnection();
@@ -114,7 +126,8 @@ public class UserDao {
                 change = true;
             }
         } catch (SQLException ex) {
-            ex.printStackTrace();
+            logger.error(ex.getMessage(), ex);
+            throw new DaoException(ex);
         }
 
         return change;
