@@ -75,7 +75,7 @@ public class VocabularyDaoTest {
 
     @Test
     public void findVocabulary3() throws DaoException {
-        List<Vocabulary> list = new VocabularyDao().findVocabulary("number");
+        List<Vocabulary> list = new VocabularyDao().findVocabulary("nUMber");
         Assert.assertTrue(list.size() == 2);
     }
 

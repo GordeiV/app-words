@@ -6,8 +6,8 @@ DROP TABLE IF EXISTS users;
 
 CREATE TABLE users (
 	id_user SERIAL,
-    login varchar(100) unique,
-    u_password varchar(255),
+    login varchar(100) unique not null,
+    u_password varchar(255) not null,
     PRIMARY KEY(id_user)
 );
 

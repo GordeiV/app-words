@@ -18,7 +18,7 @@ import java.util.List;
 public class VocabularyDao {
     private static final Logger logger = LoggerFactory.getLogger(VocabularyDao.class);
 
-    private static final String FIND_VOCABULARY = "SELECT * FROM vocabulary WHERE v_name REGEXP ?";
+    private static final String FIND_VOCABULARY = "SELECT * FROM vocabulary WHERE UPPER(v_name) REGEXP UPPER(?)";
     private static final String GET_WORDS_FROM_VOCABULARY = "SELECT * FROM words WHERE id_vocabulary = ?";
     private static final String INSERT_VOCABULARY = "INSERT INTO vocabulary(v_name, v_date, id_user, v_status, next_repeat_time) VALUES (?, ?, ?, ?, ?)";
     private static final String GET_VOCABULARIES_FOR_REPEAT = "SELECT * FROM vocabulary WHERE next_repeat_time < NOW()";
