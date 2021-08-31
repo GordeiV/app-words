@@ -456,3 +456,153 @@ java.sql.SQLIntegrityConstraintViolationException: Duplicate entry 'Person1' for
 2021-08-29 20:17:51 DEBUG UserDao - Method getUser tries to get User with login: shela
 2021-08-29 20:17:51 TRACE UserDao - Query was successfully invoked
 2021-08-29 20:17:51 DEBUG UserDao - User was received: User{login='shela', password='987654321', id=6}
+2021-09-01 01:04:57 DEBUG VocabularyDaoTest - Test
+2021-09-01 01:04:57 DEBUG UserDao - Method saveUser saves User: User{login='testUser1', password='testPassword', id=1}
+2021-09-01 01:04:57 TRACE UserDao - Query was successfully invoked and user was successfully saved
+2021-09-01 01:04:57 DEBUG UserDao - Method saveUser returned 9
+2021-09-01 01:04:57 DEBUG VocabularyDao - Method saveVocabulary was invoked with 
+Vocabulary: Vocabulary{words=[], name='noway', date=null, repeatTime=null, vocabularyStatus=null, id=null}
+User: User{login='testUser1', password='testPassword', id=1}
+2021-09-01 01:04:57 DEBUG VocabularyDao - Vocabulary: Vocabulary{words=[], name='noway', date=null, repeatTime=null, vocabularyStatus=null, id=null}
+2021-09-01 01:04:57 TRACE VocabularyDao - Query was successfully invoked
+2021-09-01 01:04:57 DEBUG VocabularyDao - Method saveVocabulary returned 18
+2021-09-01 01:04:57 DEBUG UserDao - Method saveUser saves User: User{login='testUser2', password='testPassword', id=1}
+2021-09-01 01:04:57 TRACE UserDao - Query was successfully invoked and user was successfully saved
+2021-09-01 01:04:57 DEBUG UserDao - Method saveUser returned 10
+2021-09-01 01:04:57 DEBUG VocabularyDao - Method saveVocabulary was invoked with 
+Vocabulary: Vocabulary{words=[], name='number2', date=null, repeatTime=null, vocabularyStatus=null, id=null}
+User: User{login='testUser2', password='testPassword', id=1}
+2021-09-01 01:04:57 DEBUG VocabularyDao - Vocabulary: Vocabulary{words=[], name='number2', date=null, repeatTime=null, vocabularyStatus=null, id=null}
+2021-09-01 01:04:57 TRACE VocabularyDao - Query was successfully invoked
+2021-09-01 01:04:57 DEBUG VocabularyDao - Method saveVocabulary returned 19
+2021-09-01 01:04:57 DEBUG UserDao - Method saveUser saves User: User{login='testUser3', password='testPassword', id=1}
+2021-09-01 01:04:57 TRACE UserDao - Query was successfully invoked and user was successfully saved
+2021-09-01 01:04:57 DEBUG UserDao - Method saveUser returned 11
+2021-09-01 01:04:57 DEBUG VocabularyDao - Method saveVocabulary was invoked with 
+Vocabulary: Vocabulary{words=[], name='key', date=null, repeatTime=null, vocabularyStatus=null, id=null}
+User: User{login='testUser3', password='testPassword', id=1}
+2021-09-01 01:04:57 DEBUG VocabularyDao - Vocabulary: Vocabulary{words=[], name='key', date=null, repeatTime=null, vocabularyStatus=null, id=null}
+2021-09-01 01:04:58 TRACE VocabularyDao - Query was successfully invoked
+2021-09-01 01:04:58 DEBUG VocabularyDao - Method saveVocabulary returned 20
+2021-09-01 01:04:58 DEBUG VocabularyDao - Method findVocabulary was invoked with pattern: ay
+2021-09-01 01:04:58 TRACE VocabularyDao - Query was successfully invoked
+2021-09-01 01:04:58 DEBUG VocabularyDao - Vocabularies were received. Vocabulary (number 0): Vocabulary{words=[Word{id=10, foreignWord='nurse', nativeWord='няня ', transcription='pailət'}, Word{id=11, foreignWord='cup', nativeWord='чашка', transcription='pailət'}], name='weekdays', date=2021-03-16T03:15, repeatTime=2021-01-06T01:05, vocabularyStatus=FIRST_REPEAT, id=3}
+2021-09-01 01:04:58 DEBUG VocabularyDao - Vocabularies were received. Vocabulary (number 1): Vocabulary{words=[Word{id=17, foreignWord='kettle', nativeWord='чайник', transcription='pailət'}], name='way', date=2021-08-16T21:40, repeatTime=2021-09-01T06:04:57, vocabularyStatus=SECOND_REPEAT, id=8}
+2021-09-01 01:04:58 DEBUG VocabularyDao - Vocabularies were received. Vocabulary (number 2): Vocabulary{words=[], name='noway', date=2021-09-01T01:04:58, repeatTime=2021-09-02T01:04:58, vocabularyStatus=FIRST_REPEAT, id=18}
+2021-09-01 01:04:58 DEBUG VocabularyDao - Method findVocabulary was invoked with pattern: e
+2021-09-01 01:04:58 TRACE VocabularyDao - Query was successfully invoked
+2021-09-01 01:04:58 DEBUG VocabularyDao - Vocabularies were received. Vocabulary (number 0): Vocabulary{words=[Word{id=1, foreignWord='pilot', nativeWord='пилот', transcription='pailət'}, Word{id=2, foreignWord='hospital', nativeWord='больница', transcription='pailət'}, Word{id=3, foreignWord='estate', nativeWord='поместье', transcription='pailət'}, Word{id=4, foreignWord='apartment', nativeWord='квартира', transcription='pailət'}, Word{id=5, foreignWord='bakery', nativeWord='пекарня', transcription='pailət'}, Word{id=6, foreignWord='temple', nativeWord='храм', transcription='pailət'}], name='weather', date=2021-01-06T01:05, repeatTime=2021-01-06T01:05, vocabularyStatus=FIRST_REPEAT, id=1}
+2021-09-01 01:04:58 DEBUG VocabularyDao - Vocabularies were received. Vocabulary (number 1): Vocabulary{words=[Word{id=10, foreignWord='nurse', nativeWord='няня ', transcription='pailət'}, Word{id=11, foreignWord='cup', nativeWord='чашка', transcription='pailət'}], name='weekdays', date=2021-03-16T03:15, repeatTime=2021-01-06T01:05, vocabularyStatus=FIRST_REPEAT, id=3}
+2021-09-01 01:04:58 DEBUG VocabularyDao - Vocabularies were received. Vocabulary (number 2): Vocabulary{words=[Word{id=14, foreignWord='plate', nativeWord='тарелка', transcription='pailət'}], name='people', date=2021-06-29T23:30, repeatTime=2021-04-06T01:05, vocabularyStatus=FIRST_REPEAT, id=6}
+2021-09-01 01:04:58 DEBUG VocabularyDao - Vocabularies were received. Vocabulary (number 3): Vocabulary{words=[Word{id=19, foreignWord='tap', nativeWord='постучать', transcription='pailət'}, Word{id=20, foreignWord='telephone', nativeWord='телефон', transcription='pailət'}], name='money', date=2021-01-25T19:50, repeatTime=2021-07-06T01:05, vocabularyStatus=SECOND_REPEAT, id=10}
+2021-09-01 01:04:58 DEBUG VocabularyDao - Vocabularies were received. Vocabulary (number 4): Vocabulary{words=[Word{id=21, foreignWord='knife', nativeWord='нож', transcription='pailət'}], name='time', date=2021-02-05T18:55, repeatTime=2021-08-06T01:05, vocabularyStatus=SECOND_REPEAT, id=11}
+2021-09-01 01:04:58 DEBUG VocabularyDao - Vocabularies were received. Vocabulary (number 5): Vocabulary{words=[Word{id=22, foreignWord='plane', nativeWord='самолет', transcription='pailət'}, Word{id=23, foreignWord='photographer', nativeWord='фотограф', transcription='pailət'}, Word{id=24, foreignWord='reporter', nativeWord='репортер', transcription='pailət'}, Word{id=25, foreignWord='postman', nativeWord='почтальон', transcription='pailət'}], name='water', date=2021-03-20T17:05, repeatTime=2021-09-06T01:05, vocabularyStatus=SECOND_REPEAT, id=12}
+2021-09-01 01:04:58 DEBUG VocabularyDao - Vocabularies were received. Vocabulary (number 6): Vocabulary{words=[Word{id=29, foreignWord='waiter', nativeWord='официант', transcription='pailət'}, Word{id=30, foreignWord='waitress', nativeWord='официантка', transcription='pailət'}], name='eye', date=2021-05-13T15:15, repeatTime=2021-11-06T01:05, vocabularyStatus=THIRD_REPEAT, id=14}
+2021-09-01 01:04:58 DEBUG VocabularyDao - Vocabularies were received. Vocabulary (number 7): Vocabulary{words=[Word{id=31, foreignWord='market', nativeWord='рынок', transcription='pailət'}, Word{id=32, foreignWord='actor', nativeWord='актер', transcription='pailət'}], name='number', date=2021-06-17T14:20, repeatTime=2021-12-06T01:05, vocabularyStatus=THIRD_REPEAT, id=15}
+2021-09-01 01:04:58 DEBUG VocabularyDao - Vocabularies were received. Vocabulary (number 8): Vocabulary{words=[Word{id=33, foreignWord='drugstore', nativeWord='аптека', transcription='pailət'}], name='question', date=2021-07-22T13:25, repeatTime=2021-01-06T01:05, vocabularyStatus=THIRD_REPEAT, id=16}
+2021-09-01 01:04:58 DEBUG VocabularyDao - Vocabularies were received. Vocabulary (number 9): Vocabulary{words=[], name='number2', date=2021-09-01T01:04:58, repeatTime=2021-09-02T01:04:58, vocabularyStatus=FIRST_REPEAT, id=19}
+2021-09-01 01:04:58 DEBUG VocabularyDao - Vocabularies were received. Vocabulary (number 10): Vocabulary{words=[], name='key', date=2021-09-01T01:04:58, repeatTime=2021-09-02T01:04:58, vocabularyStatus=FIRST_REPEAT, id=20}
+2021-09-01 01:04:58 DEBUG VocabularyDao - Method findVocabulary was invoked with pattern: nUMber
+2021-09-01 01:04:58 TRACE VocabularyDao - Query was successfully invoked
+2021-09-01 01:04:58 DEBUG VocabularyDao - Vocabularies were received. Vocabulary (number 0): Vocabulary{words=[Word{id=31, foreignWord='market', nativeWord='рынок', transcription='pailət'}, Word{id=32, foreignWord='actor', nativeWord='актер', transcription='pailət'}], name='number', date=2021-06-17T14:20, repeatTime=2021-12-06T01:05, vocabularyStatus=THIRD_REPEAT, id=15}
+2021-09-01 01:04:58 DEBUG VocabularyDao - Vocabularies were received. Vocabulary (number 1): Vocabulary{words=[], name='number2', date=2021-09-01T01:04:58, repeatTime=2021-09-02T01:04:58, vocabularyStatus=FIRST_REPEAT, id=19}
+2021-09-01 01:04:58 DEBUG VocabularyDao - Method deleteVocabulary was invoked with id: 5
+2021-09-01 01:04:58 TRACE VocabularyDao - Query was successfully invoked
+2021-09-01 01:04:58 DEBUG VocabularyDao - Method deleteVocabulary returned true
+2021-09-01 01:04:58 DEBUG VocabularyDao - Method findVocabulary was invoked with pattern: ability
+2021-09-01 01:04:58 TRACE VocabularyDao - Query was successfully invoked
+2021-09-01 01:04:58 DEBUG VocabularyDao - Method deleteVocabulary was invoked with id: 10
+2021-09-01 01:04:58 TRACE VocabularyDao - Query was successfully invoked
+2021-09-01 01:04:58 DEBUG VocabularyDao - Method deleteVocabulary returned true
+2021-09-01 01:04:58 DEBUG VocabularyDao - Method findVocabulary was invoked with pattern: money
+2021-09-01 01:04:58 TRACE VocabularyDao - Query was successfully invoked
+2021-09-01 01:04:58 DEBUG VocabularyDao - Method deleteVocabulary was invoked with id: 12
+2021-09-01 01:04:58 TRACE VocabularyDao - Query was successfully invoked
+2021-09-01 01:04:58 DEBUG VocabularyDao - Method deleteVocabulary returned true
+2021-09-01 01:04:58 DEBUG VocabularyDao - Method findVocabulary was invoked with pattern: water
+2021-09-01 01:04:58 TRACE VocabularyDao - Query was successfully invoked
+2021-09-01 01:04:58 TRACE VocabularyDao - Query was successfully invoked
+2021-09-01 01:04:58 DEBUG VocabularyDao - Method updateVocabulary returned true
+2021-09-01 01:04:58 DEBUG VocabularyDao - Method findVocabulary was invoked with pattern: question
+2021-09-01 01:04:58 TRACE VocabularyDao - Query was successfully invoked
+2021-09-01 01:04:58 DEBUG VocabularyDao - Method findVocabulary was invoked with pattern: forTest
+2021-09-01 01:04:58 TRACE VocabularyDao - Query was successfully invoked
+2021-09-01 01:04:58 DEBUG VocabularyDao - Vocabularies were received. Vocabulary (number 0): Vocabulary{words=[Word{id=33, foreignWord='drugstore', nativeWord='аптека', transcription='pailət'}], name='forTest', date=2021-07-22T13:25, repeatTime=2021-01-06T01:05, vocabularyStatus=THIRD_REPEAT, id=16}
+2021-09-01 01:05:59 DEBUG WordDao - Method saveWord was invoked with vocabularyId - 1 for word: Word{id=null, foreignWord='testWord', nativeWord='тестовоеСлово', transcription='ttt'}
+2021-09-01 01:05:59 TRACE WordDao - Query was successfully invoked
+2021-09-01 01:05:59 DEBUG WordDao - Method saveWord returned 37
+2021-09-01 01:05:59 DEBUG WordDao - Method getWord was invoked with id: 37
+2021-09-01 01:05:59 TRACE WordDao - Query was successfully invoked
+2021-09-01 01:05:59 DEBUG WordDao - Word was received: Word{id=37, foreignWord='testWord', nativeWord='тестовоеСлово', transcription='ttt'}
+2021-09-01 01:05:59 DEBUG WordDao - Method deleteWord was invoked with id: 1
+2021-09-01 01:05:59 TRACE WordDao - Query was successfully invoked
+2021-09-01 01:05:59 DEBUG WordDao - Method deleteWord returned true
+2021-09-01 01:05:59 DEBUG WordDao - Method getWord was invoked with id: 1
+2021-09-01 01:05:59 TRACE WordDao - Query was successfully invoked
+2021-09-01 01:05:59 DEBUG WordDao - Word was received: null
+2021-09-01 01:05:59 DEBUG WordDao - Method deleteWord was invoked with id: 2
+2021-09-01 01:05:59 TRACE WordDao - Query was successfully invoked
+2021-09-01 01:05:59 DEBUG WordDao - Method deleteWord returned true
+2021-09-01 01:05:59 DEBUG WordDao - Method getWord was invoked with id: 2
+2021-09-01 01:05:59 TRACE WordDao - Query was successfully invoked
+2021-09-01 01:05:59 DEBUG WordDao - Word was received: null
+2021-09-01 01:05:59 DEBUG WordDao - Method deleteWord was invoked with id: 2
+2021-09-01 01:05:59 TRACE WordDao - Query was successfully invoked
+2021-09-01 01:05:59 DEBUG WordDao - Method deleteWord returned false
+2021-09-01 01:05:59 DEBUG WordDao - Method updateWord was invoked with word: Word{id=6, foreignWord='testWord', nativeWord='тестовоеСлово', transcription='ttt'}
+2021-09-01 01:05:59 TRACE WordDao - Query was successfully invoked
+2021-09-01 01:05:59 DEBUG WordDao - Method updateWord returned true
+2021-09-01 01:05:59 DEBUG WordDao - Method getWord was invoked with id: 6
+2021-09-01 01:05:59 TRACE WordDao - Query was successfully invoked
+2021-09-01 01:05:59 DEBUG WordDao - Word was received: Word{id=6, foreignWord='testWord', nativeWord='тестовоеСлово', transcription='ttt'}
+2021-09-01 01:05:59 DEBUG WordDao - Method updateWord was invoked with word: Word{id=9223372036854775807, foreignWord='testWord', nativeWord='тестовоеСлово', transcription='ttt'}
+2021-09-01 01:05:59 TRACE WordDao - Query was successfully invoked
+2021-09-01 01:05:59 DEBUG WordDao - Method updateWord returned false
+2021-09-01 01:05:59 DEBUG WordDao - Method getWord was invoked with id: 3
+2021-09-01 01:05:59 TRACE WordDao - Query was successfully invoked
+2021-09-01 01:05:59 DEBUG WordDao - Word was received: Word{id=3, foreignWord='estate', nativeWord='поместье', transcription='pailət'}
+2021-09-01 01:05:59 DEBUG WordDao - Method getWord was invoked with id: 4
+2021-09-01 01:05:59 TRACE WordDao - Query was successfully invoked
+2021-09-01 01:05:59 DEBUG WordDao - Word was received: Word{id=4, foreignWord='apartment', nativeWord='квартира', transcription='pailət'}
+2021-09-01 01:05:59 DEBUG WordDao - Method getWord was invoked with id: 5
+2021-09-01 01:05:59 TRACE WordDao - Query was successfully invoked
+2021-09-01 01:05:59 DEBUG WordDao - Word was received: Word{id=5, foreignWord='bakery', nativeWord='пекарня', transcription='pailət'}
+2021-09-01 01:26:51 DEBUG WordDao - Method saveWord was invoked with vocabularyId - 1 for word: Word{id=null, foreignWord='testWord', nativeWord='тестовоеСлово', transcription='ttt'}
+2021-09-01 01:26:51 TRACE WordDao - Query was successfully invoked
+2021-09-01 01:26:51 DEBUG WordDao - Method saveWord returned 37
+2021-09-01 01:26:51 DEBUG WordDao - Method getWord was invoked with id: 37
+2021-09-01 01:26:51 TRACE WordDao - Query was successfully invoked
+2021-09-01 01:26:51 DEBUG WordDao - Word was received: Word{id=37, foreignWord='testWord', nativeWord='тестовоеСлово', transcription='ttt'}
+2021-09-01 01:26:51 DEBUG WordDao - Method deleteWord was invoked with id: 1
+2021-09-01 01:26:51 TRACE WordDao - Query was successfully invoked
+2021-09-01 01:26:51 DEBUG WordDao - Method deleteWord returned true
+2021-09-01 01:26:51 DEBUG WordDao - Method getWord was invoked with id: 1
+2021-09-01 01:26:51 TRACE WordDao - Query was successfully invoked
+2021-09-01 01:26:51 DEBUG WordDao - Word was received: null
+2021-09-01 01:26:51 DEBUG WordDao - Method deleteWord was invoked with id: 2
+2021-09-01 01:26:51 TRACE WordDao - Query was successfully invoked
+2021-09-01 01:26:51 DEBUG WordDao - Method deleteWord returned true
+2021-09-01 01:26:51 DEBUG WordDao - Method getWord was invoked with id: 2
+2021-09-01 01:26:51 TRACE WordDao - Query was successfully invoked
+2021-09-01 01:26:51 DEBUG WordDao - Word was received: null
+2021-09-01 01:26:51 DEBUG WordDao - Method deleteWord was invoked with id: 2
+2021-09-01 01:26:51 TRACE WordDao - Query was successfully invoked
+2021-09-01 01:26:51 DEBUG WordDao - Method deleteWord returned false
+2021-09-01 01:26:51 DEBUG WordDao - Method updateWord was invoked with word: Word{id=6, foreignWord='testWord', nativeWord='тестовоеСлово', transcription='ttt'}
+2021-09-01 01:26:51 TRACE WordDao - Query was successfully invoked
+2021-09-01 01:26:51 DEBUG WordDao - Method updateWord returned true
+2021-09-01 01:26:51 DEBUG WordDao - Method getWord was invoked with id: 6
+2021-09-01 01:26:51 TRACE WordDao - Query was successfully invoked
+2021-09-01 01:26:51 DEBUG WordDao - Word was received: Word{id=6, foreignWord='testWord', nativeWord='тестовоеСлово', transcription='ttt'}
+2021-09-01 01:26:51 DEBUG WordDao - Method updateWord was invoked with word: Word{id=9223372036854775807, foreignWord='testWord', nativeWord='тестовоеСлово', transcription='ttt'}
+2021-09-01 01:26:51 TRACE WordDao - Query was successfully invoked
+2021-09-01 01:26:51 DEBUG WordDao - Method updateWord returned false
+2021-09-01 01:26:51 DEBUG WordDao - Method getWord was invoked with id: 3
+2021-09-01 01:26:51 TRACE WordDao - Query was successfully invoked
+2021-09-01 01:26:51 DEBUG WordDao - Word was received: Word{id=3, foreignWord='estate', nativeWord='поместье', transcription='pailət'}
+2021-09-01 01:26:51 DEBUG WordDao - Method getWord was invoked with id: 4
+2021-09-01 01:26:51 TRACE WordDao - Query was successfully invoked
+2021-09-01 01:26:51 DEBUG WordDao - Word was received: Word{id=4, foreignWord='apartment', nativeWord='квартира', transcription='pailət'}
+2021-09-01 01:26:51 DEBUG WordDao - Method getWord was invoked with id: 5
+2021-09-01 01:26:51 TRACE WordDao - Query was successfully invoked
+2021-09-01 01:26:51 DEBUG WordDao - Word was received: Word{id=5, foreignWord='bakery', nativeWord='пекарня', transcription='pailət'}
