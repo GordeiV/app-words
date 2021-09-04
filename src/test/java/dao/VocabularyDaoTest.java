@@ -8,24 +8,10 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import util.ConnectionManager;
 
-import java.io.IOException;
-import java.net.URISyntaxException;
-import java.net.URL;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.List;
-import java.util.stream.Collectors;
 
-import static org.junit.Assert.*;
 
 public class VocabularyDaoTest {
     private static final Logger logger = LoggerFactory.getLogger(VocabularyDaoTest.class);

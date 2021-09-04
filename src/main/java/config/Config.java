@@ -14,7 +14,7 @@ public final class Config {
 
     public synchronized static String getProperty(String name) {
         if(properties.isEmpty()) {
-            try (InputStream is = new FileInputStream("src/main/resources/dao.properties")){
+            try (InputStream is = Config.class.getClassLoader().getResourceAsStream("dao.properties")){
 
                 properties.load(is);
 
