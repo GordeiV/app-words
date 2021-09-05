@@ -1,12 +1,9 @@
 package main;
 
 import dao.DaoException;
-import entity.User;
 import entity.Vocabulary;
 import entity.Word;
-import dao.UserDao;
 import dao.VocabularyDao;
-import util.ConnectionManager;
 
 import java.sql.*;
 import java.time.format.DateTimeFormatter;

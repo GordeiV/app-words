@@ -25,16 +25,24 @@ public class VocabularyDao {
     private static final String DELETE_VOCABULARY = "DELETE FROM vocabulary WHERE id_vocabulary = ?;";
     private static final String UPDATE_VOCABULARY = "UPDATE vocabulary SET v_name = ? WHERE id_vocabulary = ?";
 
+    private ConnectionManager connectionManager;
 
-    public List<Vocabulary> getVocabulariesForRepeat() throws DaoException{
+    public void setConnectionManager(ConnectionManager connectionManager) {
+        this.connectionManager = connectionManager;
+    }
+
+    private Connection getConnection() throws SQLException {
+        return connectionManager.getConnection();
+    }
+
+    public List<Vocabulary> getVocabulariesForRepeat() throws DaoException {
         logger.debug("Method getVocabulariesForRepeat was invoked");
 
         List<Vocabulary> vocabularies = new ArrayList<>();
 
-        try (Connection con = ConnectionManager.getConnection();
+        try (Connection con = getConnection();
              PreparedStatement stmtFindVocabulary = con.prepareStatement(GET_VOCABULARIES_FOR_REPEAT);
-             PreparedStatement stmtFindWord = con.prepareStatement(GET_WORDS_FROM_VOCABULARY))
-        {
+             PreparedStatement stmtFindWord = con.prepareStatement(GET_WORDS_FROM_VOCABULARY)) {
             ResultSet rsWithVocabularies = stmtFindVocabulary.executeQuery();
 
             while (rsWithVocabularies.next()) {
@@ -74,7 +82,7 @@ public class VocabularyDao {
 
         List<Vocabulary> vocabularies = new ArrayList<>();
 
-        try (Connection con = ConnectionManager.getConnection();
+        try (Connection con = getConnection();
              PreparedStatement stmtFindVocabulary = con.prepareStatement(FIND_VOCABULARY);
              PreparedStatement stmtFindWord = con.prepareStatement(GET_WORDS_FROM_VOCABULARY)) {
             stmtFindVocabulary.setString(1, ".*?" + pattern + ".*?");
@@ -119,7 +127,7 @@ public class VocabularyDao {
 
         logger.debug("Vocabulary: {}", vocabulary);
 
-        try (Connection connection = ConnectionManager.getConnection();
+        try (Connection connection = getConnection();
              PreparedStatement stmt = connection.prepareStatement(INSERT_VOCABULARY, new String[]{"id_vocabulary"})) {
             stmt.setString(1, vocabulary.getName());
             stmt.setTimestamp(2, java.sql.Timestamp.valueOf(LocalDateTime.now()));
@@ -151,13 +159,12 @@ public class VocabularyDao {
 
         boolean change = false;
 
-        try (Connection con = ConnectionManager.getConnection();
-             PreparedStatement stmt = con.prepareStatement(DELETE_VOCABULARY))
-        {
+        try (Connection con = getConnection();
+             PreparedStatement stmt = con.prepareStatement(DELETE_VOCABULARY)) {
             stmt.setLong(1, id);
             int i = stmt.executeUpdate();
             logger.trace("Query was successfully invoked");
-            if(i > 0) {
+            if (i > 0) {
                 change = true;
             }
         } catch (SQLException ex) {
@@ -172,14 +179,13 @@ public class VocabularyDao {
     public boolean updateVocabulary(Vocabulary vocabulary) throws DaoException {
         boolean change = false;
 
-        try (Connection con = ConnectionManager.getConnection();
-             PreparedStatement stmt = con.prepareStatement(UPDATE_VOCABULARY))
-        {
+        try (Connection con = getConnection();
+             PreparedStatement stmt = con.prepareStatement(UPDATE_VOCABULARY)) {
             stmt.setString(1, vocabulary.getName());
             stmt.setLong(2, vocabulary.getId());
             int i = stmt.executeUpdate();
             logger.trace("Query was successfully invoked");
-            if(i > 0) {
+            if (i > 0) {
                 change = true;
             }
         } catch (SQLException ex) {
@@ -190,5 +196,6 @@ public class VocabularyDao {
         logger.debug("Method updateVocabulary returned {}", change);
         return change;
     }
+
 
 }

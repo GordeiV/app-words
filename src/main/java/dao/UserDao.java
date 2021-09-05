@@ -1,6 +1,5 @@
 package dao;
 
-import config.Config;
 import entity.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,12 +16,14 @@ public class UserDao {
     private static final String DELETE_USER_BY_LOGIN = "DELETE FROM users WHERE login = ?";
     private static final String UPDATE_USER = "UPDATE users SET login = ?, u_password = ? WHERE id_user = ?";
 
+    private ConnectionManager connectionManager;
 
+    public void setConnectionManager(ConnectionManager connectionManager) {
+        this.connectionManager = connectionManager;
+    }
+    
     private Connection getConnection() throws SQLException {
-        Connection connection = DriverManager.getConnection(Config.getProperty(Config.DB_URL),
-                Config.getProperty(Config.DB_LOGIN),
-                Config.getProperty(Config.DB_PASSWORD));
-        return connection;
+        return connectionManager.getConnection();
     }
 
     public Long saveUser(User user) throws DaoException {
@@ -61,8 +62,8 @@ public class UserDao {
 
         User user = null;
 
-        try (Connection con = ConnectionManager.getConnection();
-        PreparedStatement stmt = con.prepareStatement(GET_USER))
+        try (Connection con = getConnection();
+             PreparedStatement stmt = con.prepareStatement(GET_USER))
         {
             stmt.setString(1, login);
 
@@ -84,7 +85,7 @@ public class UserDao {
 
         boolean change = false;
 
-        try (Connection con = ConnectionManager.getConnection();
+        try (Connection con = getConnection();
              PreparedStatement stmt = con.prepareStatement(DELETE_USER_BY_ID))
         {
             stmt.setLong(1, id);
@@ -107,7 +108,7 @@ public class UserDao {
 
         boolean change = false;
 
-        try (Connection con = ConnectionManager.getConnection();
+        try (Connection con = getConnection();
              PreparedStatement stmt = con.prepareStatement(DELETE_USER_BY_LOGIN))
         {
             stmt.setString(1, login);
@@ -130,7 +131,7 @@ public class UserDao {
 
         boolean change = false;
 
-        try (Connection con = ConnectionManager.getConnection();
+        try (Connection con = getConnection();
              PreparedStatement stmt = con.prepareStatement(UPDATE_USER))
         {
             stmt.setString(1, user.getLogin());

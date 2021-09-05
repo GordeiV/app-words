@@ -4,6 +4,9 @@ import dao.DaoException;
 import dao.VocabularyDao;
 import dao.WordDao;
 import entity.Vocabulary;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import util.PoolConnectionManager;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -16,6 +19,17 @@ import java.util.List;
 
 @WebServlet(name = "WordAppServlet", urlPatterns = {"/safeVocabulary"})
 public class WordAppServlet extends HttpServlet {
+    private static final Logger logger = LoggerFactory.getLogger(WordAppServlet.class);
+    private VocabularyDao vocabularyDao;
+
+    @Override
+    public void init() throws ServletException {
+        logger.info("Servlet is created");
+        vocabularyDao = new VocabularyDao();
+        PoolConnectionManager poolConnectionManager = new PoolConnectionManager();
+        vocabularyDao.setConnectionManager(poolConnectionManager);
+    }
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setCharacterEncoding("UTF-8");
@@ -24,7 +38,6 @@ public class WordAppServlet extends HttpServlet {
         PrintWriter writer = resp.getWriter();
         System.out.println(word);
         try {
-            VocabularyDao vocabularyDao = new VocabularyDao();
             List<Vocabulary> vocabularies = vocabularyDao.findVocabulary(word);
             if(!vocabularies.isEmpty()) {
                 for(Vocabulary vocabulary : vocabularies) {

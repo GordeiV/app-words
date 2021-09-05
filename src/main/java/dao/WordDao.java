@@ -15,12 +15,22 @@ public class WordDao {
     private static final String UPDATE_WORD = "UPDATE words SET foreign_word = ?, native_word = ?, transcription = ? WHERE id_word = ?";
     private static final String DELETE_WORD = "DELETE FROM words WHERE id_word = ?;";
 
+    private ConnectionManager connectionManager;
+
+    public void setConnectionManager(ConnectionManager connectionManager) {
+        this.connectionManager = connectionManager;
+    }
+
+    private Connection getConnection() throws SQLException {
+        return connectionManager.getConnection();
+    }
+    
     public Word getWord(Long id) throws DaoException {
         logger.debug("Method getWord was invoked with id: {}", id);
 
         Word word = null;
 
-        try (Connection con = ConnectionManager.getConnection();
+        try (Connection con = getConnection();
              PreparedStatement stmt = con.prepareStatement(GET_WORD))
         {
             stmt.setLong(1, id);
@@ -48,7 +58,7 @@ public class WordDao {
 
         Long id = -1L;
 
-        try (Connection con = ConnectionManager.getConnection();
+        try (Connection con = getConnection();
              PreparedStatement stmt = con.prepareStatement(SAVE_WORD, new String[]{"id_word"}))
         {
             stmt.setString(1, word.getForeignWord());
@@ -80,7 +90,7 @@ public class WordDao {
 
         boolean change = false;
 
-        try (Connection con = ConnectionManager.getConnection();
+        try (Connection con = getConnection();
              PreparedStatement stmt = con.prepareStatement(UPDATE_WORD))
         {
             stmt.setString(1, word.getForeignWord());
@@ -106,7 +116,7 @@ public class WordDao {
 
         boolean change = false;
 
-        try (Connection con = ConnectionManager.getConnection();
+        try (Connection con = getConnection();
              PreparedStatement stmt = con.prepareStatement(DELETE_WORD))
         {
             stmt.setLong(1, id);
