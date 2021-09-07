@@ -1,5 +1,8 @@
 package entity;
 
+import domain.LocalDateTimeAdapter;
+
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -7,13 +10,14 @@ import java.util.List;
 public class Vocabulary {
     private ArrayList<Word> words = new ArrayList<>();
     private String name;
+    @XmlJavaTypeAdapter(value = LocalDateTimeAdapter.class)
     private LocalDateTime date;
+    @XmlJavaTypeAdapter(value = LocalDateTimeAdapter.class)
     private LocalDateTime repeatTime;
     private VocabularyStatus vocabularyStatus;
     private Long id;
 
     public Vocabulary(String name, LocalDateTime date, LocalDateTime repeatTime, VocabularyStatus vocabularyStatus, Long id) {
-        this.words = words;
         this.name = name;
         this.date = date;
         this.repeatTime = repeatTime;
