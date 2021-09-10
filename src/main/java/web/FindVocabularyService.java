@@ -36,6 +36,14 @@ public class FindVocabularyService {
         List<Vocabulary> resultVocabulary = vocabularyDao.findVocabulary(vocabulary.getName());
         return resultVocabulary.get(0);
     }
+
+    @GET
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Vocabulary findVocabularyWithGet(@QueryParam("pattern") String pattern) throws DaoException {
+        logger.info(pattern);
+        List<Vocabulary> resultVocabulary = vocabularyDao.findVocabulary(pattern);
+        return resultVocabulary.get(0);
+    }
 }
 
 //    Vocabulary vocabulary = new Vocabulary(
