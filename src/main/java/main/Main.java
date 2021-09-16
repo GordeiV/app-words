@@ -4,6 +4,7 @@ import dao.DaoException;
 import entity.Vocabulary;
 import entity.Word;
 import dao.VocabularyDao;
+import util.DirectConnectionManager;
 
 import java.sql.*;
 import java.time.format.DateTimeFormatter;
@@ -11,7 +12,9 @@ import java.util.List;
 
 public class Main {
     public static void main(String[] args) throws ClassNotFoundException, SQLException, DaoException {
-        checkFindVocabulary(new VocabularyDao());
+        VocabularyDao vocabularyDao = new VocabularyDao();
+        vocabularyDao.setConnectionManager(new DirectConnectionManager());
+        checkFindVocabulary(vocabularyDao);
     }
 
     public static List<Vocabulary>  checkFindVocabulary(VocabularyDao directoryDao) throws DaoException {

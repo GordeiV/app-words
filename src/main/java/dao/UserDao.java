@@ -12,6 +12,7 @@ public class UserDao {
 
     private static final String INSERT_USER = "INSERT INTO users (login, u_password) VALUES (?, ?)";
     private static final String GET_USER = "SELECT * FROM users WHERE login = ?";
+    private static final String CHECK_USER = "SELECT * FROM users WHERE login = ? AND u_password = ?";
     private static final String DELETE_USER_BY_ID = "DELETE FROM users WHERE id_user = ?";
     private static final String DELETE_USER_BY_LOGIN = "DELETE FROM users WHERE login = ?";
     private static final String UPDATE_USER = "UPDATE users SET login = ?, u_password = ? WHERE id_user = ?";
@@ -50,6 +51,29 @@ public class UserDao {
 
         logger.debug("Method saveUser returned {}", id);
         return id;
+    }
+
+    /**
+     * @param user
+     * @return If there is no user found, 'null' will return
+     * @throws DaoException
+     */
+    public User checkUser(User user) throws DaoException {
+        try (Connection connection = getConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement(CHECK_USER)){
+            preparedStatement.setString(1, user.getLogin());
+            preparedStatement.setString(2, user.getPassword());
+            ResultSet keys = preparedStatement.executeQuery();
+            if(keys.next() == true) {
+                user = new User(keys.getString("login"), keys.getString("u_password"), keys.getLong("id_user"));
+                return user;
+            } else {
+                return null;
+            }
+        } catch (SQLException ex) {
+            logger.error(ex.getMessage(), ex);
+            throw new DaoException(ex);
+        }
     }
 
     /**
