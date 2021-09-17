@@ -22,4 +22,22 @@ public class UserService {
         }
         return checkedUser;
     }
+
+    public boolean isUserExist(String login) {
+        try {
+            User u = userDao.getUser(login);
+
+            if (u == null) {
+                return false;
+            }
+        } catch (DaoException e) {
+            e.printStackTrace();
+        }
+
+        return true;
+    }
+
+    public Long createUser(User user) throws DaoException {
+        return userDao.saveUser(user);
+    }
 }

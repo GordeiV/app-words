@@ -15,13 +15,13 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @WebServlet(name = "Log in", urlPatterns = {"/login"})
-public class SignUpServlet extends HttpServlet {
+public class LoginServlet extends HttpServlet {
     private static final Logger logger = LoggerFactory.getLogger(StartSite.class);
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         logger.info("here");
-        request.getRequestDispatcher("/html/login.html").forward(request, response);
+        request.getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
     }
 
     @Override
@@ -33,9 +33,10 @@ public class SignUpServlet extends HttpServlet {
         try {
             User user = userService.logInUser(new User(login, password));
             request.getSession().setAttribute("user", user);
-            response.sendRedirect(request.getContextPath() + "/start?login=" + user.getLogin());
+            response.sendRedirect(request.getContextPath() + "/start");
         } catch (NoUserFound noUserFound) {
-            request.getRequestDispatcher("/html/false-login.html").forward(request, response);
+            request.setAttribute("error", "Unknown user, please try again");
+            request.getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
         } catch (DaoException e) {
             e.printStackTrace();
         }
