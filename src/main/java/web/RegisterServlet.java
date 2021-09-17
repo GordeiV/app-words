@@ -16,6 +16,12 @@ import java.io.IOException;
 @WebServlet(name = "user-register", urlPatterns = {"/register"})
 public class RegisterServlet extends HttpServlet {
     private static final Logger logger = LoggerFactory.getLogger(RegisterServlet.class);
+    private UserService userService;
+
+    @Override
+    public void init() throws ServletException {
+        userService = new UserService();
+    }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -25,7 +31,6 @@ public class RegisterServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        UserService service = new UserService();
         String userName = req.getParameter("user");
         String password = req.getParameter("psw");
         User user = new User(userName, password);
@@ -37,14 +42,14 @@ public class RegisterServlet extends HttpServlet {
             return;
         }
 
-        if(service.isUserExist(user.getLogin())) {
+        if(userService.isUserExist(user.getLogin())) {
             req.setAttribute("error", "Username already exists");
             doGet(req, resp);
             return;
         }
         Long id = 0L;
         try {
-            id = service.createUser(user);
+            id = userService.createUser(user);
         } catch (DaoException e) {
             logger.error(e.getMessage());
         }

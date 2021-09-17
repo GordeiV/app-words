@@ -16,7 +16,13 @@ import java.io.IOException;
 
 @WebServlet(name = "Log in", urlPatterns = {"/login"})
 public class LoginServlet extends HttpServlet {
-    private static final Logger logger = LoggerFactory.getLogger(StartSite.class);
+    private static final Logger logger = LoggerFactory.getLogger(StartSiteServlet.class);
+    private UserService userService;
+
+    @Override
+    public void init() throws ServletException {
+        userService = new UserService();
+    }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -29,7 +35,6 @@ public class LoginServlet extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         String login = request.getParameter("login");
         String password = request.getParameter("password");
-        UserService userService = new UserService();
         try {
             User user = userService.logInUser(new User(login, password));
             request.getSession().setAttribute("user", user);
@@ -38,7 +43,7 @@ public class LoginServlet extends HttpServlet {
             request.setAttribute("error", "Unknown user, please try again");
             request.getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
         } catch (DaoException e) {
-            e.printStackTrace();
+            logger.error(e.getMessage());
         }
     }
 }

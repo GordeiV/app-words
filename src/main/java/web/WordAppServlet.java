@@ -47,7 +47,7 @@ public class WordAppServlet extends HttpServlet {
                 writer.println("Not found");
             }
         } catch (DaoException e) {
-            e.printStackTrace();
+            logger.error(e.getMessage());
         }
     }
 }
