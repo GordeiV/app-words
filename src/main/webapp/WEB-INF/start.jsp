@@ -11,7 +11,7 @@
     <div class="menubar">
         <ul class="menu">
             <li><a href="">Create new vocabulary</a></li>
-            <li><a href="">Show all vocabularies</a></li>
+            <li><a href="vocabularies">Show all vocabularies</a></li>
             <li><a href="">Calender</a></li>
         </ul>
     </div>

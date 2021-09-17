@@ -26,11 +26,16 @@
         <p></p>
 
         <input type="submit" class="btn" value="register">
+
         <p></p>
 
         <span class="error"><b><h3>${error}</h3></b></span>
       <hr>
     </div>
+    <div>
+  </form>
+  <form action="login">
+      <input type="submit" value="Go to Log In" />
   </form>
 </body>
 </html>

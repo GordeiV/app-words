@@ -22,6 +22,7 @@ public class VocabularyDao {
     private static final String GET_WORDS_FROM_VOCABULARY = "SELECT * FROM words WHERE id_vocabulary = ?";
     private static final String INSERT_VOCABULARY = "INSERT INTO vocabulary(v_name, v_date, id_user, v_status, next_repeat_time) VALUES (?, ?, ?, ?, ?)";
     private static final String GET_VOCABULARIES_FOR_REPEAT = "SELECT * FROM vocabulary WHERE next_repeat_time < NOW()";
+    private static final String GET_ALL_VOCABULARIES = "SELECT * FROM vocabulary WHERE id_user = ?";
     private static final String DELETE_VOCABULARY = "DELETE FROM vocabulary WHERE id_vocabulary = ?;";
     private static final String UPDATE_VOCABULARY = "UPDATE vocabulary SET v_name = ? WHERE id_vocabulary = ?";
 
@@ -33,6 +34,49 @@ public class VocabularyDao {
 
     private Connection getConnection() throws SQLException {
         return connectionManager.getConnection();
+    }
+
+    public List<Vocabulary> getAllVocabularies(Long userId) throws DaoException {
+        logger.debug("Method getVocabulariesForRepeat was invoked");
+
+        List<Vocabulary> vocabularies = new ArrayList<>();
+
+        try (Connection con = getConnection();
+             PreparedStatement stmtFindVocabulary = con.prepareStatement(GET_ALL_VOCABULARIES);
+             PreparedStatement stmtFindWord = con.prepareStatement(GET_WORDS_FROM_VOCABULARY)) {
+            stmtFindVocabulary.setLong(1, userId);
+            ResultSet rsWithVocabularies = stmtFindVocabulary.executeQuery();
+
+            while (rsWithVocabularies.next()) {
+                String name = rsWithVocabularies.getString("v_name");
+                LocalDateTime date = rsWithVocabularies.getTimestamp("v_date").toLocalDateTime();
+                LocalDateTime repeatTime = rsWithVocabularies.getTimestamp("next_repeat_time").toLocalDateTime();
+                VocabularyStatus status = VocabularyStatus.values()[rsWithVocabularies.getInt("v_status")];
+                Long id = rsWithVocabularies.getLong("id_vocabulary");
+
+                Vocabulary vocabulary = new Vocabulary(name, date, repeatTime, status, id);
+
+                stmtFindWord.setLong(1, id);
+                ResultSet rsWithWords = stmtFindWord.executeQuery();
+                logger.trace("Query was successfully invoked");
+
+                while (rsWithWords.next()) {
+                    Long wordId = rsWithWords.getLong("id_word");
+                    String foreignWord = rsWithWords.getString("foreign_word");
+                    String nativeWord = rsWithWords.getString("native_word");
+                    String transcription = rsWithWords.getString("transcription");
+                    vocabulary.addWord(new Word(wordId, foreignWord, nativeWord, transcription));
+                }
+                logger.debug("Vocabularies were received. Vocabulary (number {}): {}", vocabularies.size(), vocabulary);
+                vocabularies.add(vocabulary);
+            }
+
+        } catch (SQLException ex) {
+            logger.error(ex.getMessage(), ex);
+            throw new DaoException(ex);
+        }
+
+        return vocabularies;
     }
 
     public List<Vocabulary> getVocabulariesForRepeat() throws DaoException {
