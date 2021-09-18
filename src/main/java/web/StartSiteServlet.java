@@ -16,19 +16,28 @@ public class StartSiteServlet extends HttpServlet {
     private static final Logger logger = LoggerFactory.getLogger(StartSiteServlet.class);
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.setCharacterEncoding("UTF-8");
+        resp.setCharacterEncoding("UTF-8");
+
+        if (req.getSession().getAttribute("user") == null) {
+            logger.trace("if-loop entered");
+            resp.sendRedirect(req.getContextPath() + "/login");
+            return;
+        }
+
         logger.info("here");
-        String login = request.getParameter("login");
-        User user = (User) request.getSession().getAttribute("user");
-        request.setAttribute("login", user.getLogin());
-//        response.getWriter().println("<html><h1><a href=user></a>" + user.getLogin() + "</h1></html>");
-        request.getRequestDispatcher("/WEB-INF/start.jsp").forward(request, response);
+        String login = req.getParameter("login");
+        User user = (User) req.getSession().getAttribute("user");
+        req.setAttribute("login", user.getLogin());
+        req.getRequestDispatcher("/WEB-INF/start.jsp").forward(req, resp);
     }
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse response) throws ServletException, IOException {
+        req.setCharacterEncoding("UTF-8");
         logger.info("here");
-        doGet(request, response);
+        doGet(req, response);
     }
 
 }

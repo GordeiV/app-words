@@ -1,5 +1,6 @@
 package web;
 
+import business.UserService;
 import business.VocabularyService;
 import dao.DaoException;
 import entity.User;
@@ -13,12 +14,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.List;
 
-@WebServlet(name = "vocabularies", urlPatterns = {"/vocabularies"})
-public class VocabulariesServlet extends HttpServlet {
-    private static final Logger logger = LoggerFactory.getLogger(VocabulariesServlet.class);
-    private List<Vocabulary> vocabularies;
+@WebServlet(name = "save vocabulary", urlPatterns = {"/save/vocabulary"})
+public class SaveVocabularyServlet extends HttpServlet {
+    private static final Logger logger = LoggerFactory.getLogger(StartSiteServlet.class);
     private VocabularyService vocabularyService;
 
     @Override
@@ -31,24 +30,28 @@ public class VocabulariesServlet extends HttpServlet {
         req.setCharacterEncoding("UTF-8");
         resp.setCharacterEncoding("UTF-8");
 
-        User user = (User) req.getSession().getAttribute("user");
-
-        logger.trace("user: {}", user);
-
-        if (user == null) {
+        if (req.getSession().getAttribute("user") == null) {
             logger.trace("if-loop entered");
             resp.sendRedirect(req.getContextPath() + "/login");
             return;
         }
 
+        Vocabulary vocabulary = (Vocabulary) req.getSession().getAttribute("vocabulary");
+        req.setAttribute("words", vocabulary.getWords());
+        req.getRequestDispatcher("/WEB-INF/save-vocabulary.jsp").forward(req, resp);
+    }
 
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.setCharacterEncoding("UTF-8");
+        Vocabulary vocabulary = (Vocabulary) req.getSession().getAttribute("vocabulary");
+        User user = (User) req.getSession().getAttribute("user");
+        req.getSession().removeAttribute("vocabulary");
         try {
-            vocabularies = vocabularyService.getUsersVocabularies(user);
+            vocabularyService.saveVocabulary(vocabulary, user);
         } catch (DaoException e) {
             logger.error(e.getMessage());
         }
-        req.setAttribute("login", user.getLogin());
-        req.setAttribute("vocabularies", vocabularies);
-        req.getRequestDispatcher("/WEB-INF/show-vocabularies.jsp").forward(req, resp);
+        resp.sendRedirect(req.getContextPath() + "/start");
     }
 }

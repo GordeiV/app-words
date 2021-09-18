@@ -2,6 +2,7 @@ package web;
 
 import business.UserService;
 import business.exceptions.NoUserFound;
+import business.exceptions.WrongPassword;
 import dao.DaoException;
 import entity.User;
 import org.slf4j.Logger;
@@ -25,23 +26,29 @@ public class LoginServlet extends HttpServlet {
     }
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         logger.info("here");
-        request.getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
+        req.setCharacterEncoding("UTF-8");
+        resp.setCharacterEncoding("UTF-8");
+        req.getRequestDispatcher("/WEB-INF/login.jsp").forward(req, resp);
     }
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.setCharacterEncoding("UTF-8");
-        String login = request.getParameter("login");
-        String password = request.getParameter("password");
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.setCharacterEncoding("UTF-8");
+        req.setCharacterEncoding("UTF-8");
+        String login = req.getParameter("login");
+        String password = req.getParameter("password");
         try {
             User user = userService.logInUser(new User(login, password));
-            request.getSession().setAttribute("user", user);
-            response.sendRedirect(request.getContextPath() + "/start");
+            req.getSession().setAttribute("user", user);
+            resp.sendRedirect(req.getContextPath() + "/start");
         } catch (NoUserFound noUserFound) {
-            request.setAttribute("error", "Unknown user, please try again");
-            request.getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
+            req.setAttribute("error", "Unknown user, please try again");
+            req.getRequestDispatcher("/WEB-INF/login.jsp").forward(req, resp);
+        } catch (WrongPassword wrongPassword) {
+            req.setAttribute("error", "Password or username is incorrect");
+            req.getRequestDispatcher("/WEB-INF/login.jsp").forward(req, resp);
         } catch (DaoException e) {
             logger.error(e.getMessage());
         }

@@ -1,6 +1,7 @@
 package business;
 
 import business.exceptions.NoUserFound;
+import business.exceptions.WrongPassword;
 import dao.DaoException;
 import dao.UserDao;
 import entity.User;
@@ -14,11 +15,16 @@ public class UserService {
         userDao.setConnectionManager(new PoolConnectionManager());
     }
 
-    public User logInUser(User user) throws NoUserFound, DaoException {
-        User checkedUser = userDao.checkUser(user);
+    public User logInUser(User user) throws NoUserFound, DaoException, WrongPassword {
+        User checkedUser = userDao.getUser(user.getLogin());
         if(checkedUser == null) {
             String message = "There is no user with - Login: " + user.getLogin() + "| Password: " + user.getPassword();
             throw new NoUserFound(message);
+        }
+        if(!checkedUser.getPassword().equals(user.getPassword())) {
+            String message = "The password is incorrect: " + user.getPassword()
+                    + ". The correct password: " + checkedUser.getPassword();
+            throw new WrongPassword(message);
         }
         return checkedUser;
     }

@@ -1,8 +1,7 @@
-package web;
+package other;
 
 import dao.DaoException;
 import dao.VocabularyDao;
-import dao.WordDao;
 import entity.Vocabulary;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,6 +32,7 @@ public class WordAppServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setCharacterEncoding("UTF-8");
+        resp.setCharacterEncoding("UTF-8");
 
         String word = req.getParameter("word_1");
         PrintWriter writer = resp.getWriter();

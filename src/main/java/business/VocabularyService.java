@@ -19,4 +19,8 @@ public class VocabularyService {
     public List<Vocabulary> getUsersVocabularies(User user) throws DaoException {
         return vocabularyDao.getAllVocabularies(user.getId());
     }
+
+    public void saveVocabulary(Vocabulary vocabulary, User user) throws DaoException {
+        vocabularyDao.saveVocabulary(vocabulary, user);
+    }
 }

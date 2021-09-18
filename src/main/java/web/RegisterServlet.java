@@ -25,12 +25,15 @@ public class RegisterServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.setCharacterEncoding("UTF-8");
+        resp.setCharacterEncoding("UTF-8");
         req.getRequestDispatcher("/WEB-INF/register.jsp").forward(req, resp);
         req.removeAttribute("error");
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.setCharacterEncoding("UTF-8");
         String userName = req.getParameter("user");
         String password = req.getParameter("psw");
         User user = new User(userName, password);

@@ -1,4 +1,4 @@
-package web;
+package other;
 
 import dao.DaoException;
 import dao.VocabularyDao;
@@ -8,7 +8,6 @@ import org.slf4j.LoggerFactory;
 import util.PoolConnectionManager;
 
 import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
 import javax.inject.Singleton;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;

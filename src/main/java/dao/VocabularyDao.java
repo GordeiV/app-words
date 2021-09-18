@@ -8,6 +8,7 @@ import entity.Word;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import util.ConnectionManager;
+import util.PoolConnectionManager;
 
 import java.sql.*;
 import java.time.LocalDateTime;
@@ -168,6 +169,8 @@ public class VocabularyDao {
         logger.debug("Method saveVocabulary was invoked with \nVocabulary: {}\nUser: {}", vocabulary, user);
 
         Long result = -1L;
+        WordDao wordDao = new WordDao();
+        wordDao.setConnectionManager(new PoolConnectionManager());
 
         logger.debug("Vocabulary: {}", vocabulary);
 
@@ -186,6 +189,9 @@ public class VocabularyDao {
             ResultSet generatedKeys = stmt.getGeneratedKeys();
             if (generatedKeys.next()) {
                 result = generatedKeys.getLong(1);
+            }
+            for(Word word : vocabulary.getWords()) {
+                wordDao.saveWord(word, result);
             }
             generatedKeys.close();
 

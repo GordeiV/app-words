@@ -1,4 +1,4 @@
-INSERT INTO users (login, u_password) VALUES ('marks', 'qwerty123'),
+INSERT INTO users (login, u_password) VALUES ('marks', '1'),
 ('sam', '07021997'),
 ('john', 'fen1232'),
 ('sally', 'kirk222'),
